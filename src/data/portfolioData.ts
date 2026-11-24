@@ -59,7 +59,7 @@ export const personalInfo = {
   stats: [
     { label: "Projects Completed", value: "10+" },
     { label: "Hackathon Honors", value: "3+" },
-    { label: "Industry Internships", value: "3" },
+    { label: "Industry Internships", value: "2" },
     { label: "Code Commits", value: "500+" },
   ]
 };
@@ -285,22 +285,6 @@ export const experiences: Experience[] = [
       "Collaborated on data preprocessing workflows to ingest structured financial logs and unstructured invoices into unified vector representations."
     ],
     skills: ["Generative AI", "RAG", "Pinecone", "LangChain", "Ollama", "Python"]
-  },
-  {
-    id: "virtualtech",
-    role: "Machine Learning Intern",
-    company: "Virtual Tech Services",
-    location: "Remote / Chennai, India",
-    duration: "21 Days (Intensive)",
-    period: "Early Engineering",
-    type: "Internship",
-    badge: "ML & Data Science Foundation",
-    description: [
-      "Trained exploratory machine learning classification models on historical meteorological data for local weather pattern prediction.",
-      "Leveraged Python, NumPy, Pandas, and Scikit-Learn for data cleaning, feature normalization, and evaluating confusion matrices.",
-      "Gained foundational experience in production ML pipelines and algorithmic data preprocessing."
-    ],
-    skills: ["Python", "Machine Learning", "Scikit-Learn", "Pandas", "NumPy"]
   }
 ];
 

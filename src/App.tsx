@@ -21,10 +21,6 @@ export const App: React.FC = () => {
 
   const handleSelectSkill = (skillName: string) => {
     setSelectedSkillFilter(skillName);
-    const projectsEl = document.getElementById('projects');
-    if (projectsEl) {
-      projectsEl.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (

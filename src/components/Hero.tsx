@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ArrowRight, Download, Github, Linkedin, 
-  Mail, Palette
+  ArrowRight, Download
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import { triggerCelebration } from '../utils/confetti';
@@ -167,56 +166,6 @@ export const Hero: React.FC = () => {
                 <Download className="w-4 h-4 text-blue-500 dark:text-cyan-400" />
                 <span>Resume PDF</span>
               </button>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.6 }}
-              className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 w-full"
-            >
-              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-2">
-                Socials:
-              </span>
-              <a
-                href={personalInfo.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
-                aria-label="GitHub Profile"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-
-              <a
-                href={personalInfo.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-
-              <a
-                href={personalInfo.socials.artGallery}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
-                aria-label="Art Gallery"
-                title="Pawan's Online Art Gallery"
-              >
-                <Palette className="w-4 h-4" />
-              </a>
-
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
-                aria-label="Email Me"
-              >
-                <Mail className="w-4 h-4" />
-              </a>
             </motion.div>
 
           </motion.div>
