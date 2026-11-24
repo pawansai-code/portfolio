@@ -1,11 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-interface ThreeExperienceFlowProps {
-  activeStage?: string | null;
-}
-
-export const ThreeExperienceFlow: React.FC<ThreeExperienceFlowProps> = ({ activeStage }) => {
+export const ThreeExperienceFlow: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -13,12 +9,13 @@ export const ThreeExperienceFlow: React.FC<ThreeExperienceFlowProps> = ({ active
     if (!container) return;
 
     const width = container.clientWidth || window.innerWidth;
-    const height = container.clientHeight || 800;
+    const height = container.clientHeight || 900;
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 180);
+    const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
+    camera.position.set(0, 110, 240);
+    camera.lookAt(0, -20, 0);
 
     const renderer = new THREE.WebGLRenderer({ 
       alpha: true, 
@@ -29,100 +26,123 @@ export const ThreeExperienceFlow: React.FC<ThreeExperienceFlowProps> = ({ active
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
-    // 2. Interactive Flow Stream (3D Curved Particle River)
-    const particleCount = 140;
-    const curvePoints = [
-      new THREE.Vector3(-120, 120, -40),
-      new THREE.Vector3(-40, 60, 20),
-      new THREE.Vector3(30, -10, -20),
-      new THREE.Vector3(-30, -80, 10),
-      new THREE.Vector3(100, -140, -30),
-    ];
-    const curve = new THREE.CatmullRomCurve3(curvePoints);
+    // 2. Interactive 3D Fluid Quantum Wave Particle Grid
+    // 50 x 30 = 1500 dynamic glowing nodes
+    const cols = 55;
+    const rows = 35;
+    const numParticles = cols * rows;
+    const spacingX = 14;
+    const spacingZ = 14;
+    const offsetX = ((cols - 1) * spacingX) / 2;
+    const offsetZ = ((rows - 1) * spacingZ) / 2;
 
-    // Particles following the spline
-    const particlesData: Array<{ t: number; speed: number; radius: number; angle: number; rotSpeed: number }> = [];
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
+    const positions = new Float32Array(numParticles * 3);
+    const colors = new Float32Array(numParticles * 3);
+    const initialY = new Float32Array(numParticles);
 
-    // Base color palettes
-    const colorAI = new THREE.Color('#06b6d4'); // Cyan for OneIntegral AI
-    const colorWeb = new THREE.Color('#3b82f6'); // Electric Blue for SocialTek
-    const colorAccent = new THREE.Color('#8b5cf6'); // Violet
+    // Color gradients: AI Cyan (#00f2fe) to Electric Blue (#4facfe) and Violet (#7f00ff)
+    const colorCyan = new THREE.Color('#00f2fe');
+    const colorBlue = new THREE.Color('#3b82f6');
+    const colorViolet = new THREE.Color('#8b5cf6');
 
-    for (let i = 0; i < particleCount; i++) {
-      const t = i / particleCount;
-      const pt = curve.getPoint(t);
-      const radius = 10 + Math.random() * 22;
-      const angle = Math.random() * Math.PI * 2;
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const index = i * rows + j;
+        const x = i * spacingX - offsetX;
+        const z = j * spacingZ - offsetZ;
+        const y = 0;
 
-      positions[i * 3] = pt.x + Math.cos(angle) * radius;
-      positions[i * 3 + 1] = pt.y + Math.sin(angle) * radius;
-      positions[i * 3 + 2] = pt.z + (Math.random() - 0.5) * 20;
+        positions[index * 3] = x;
+        positions[index * 3 + 1] = y;
+        positions[index * 3 + 2] = z;
+        initialY[index] = y;
 
-      const c = t < 0.5 ? colorAI : colorWeb;
-      colors[i * 3] = c.r;
-      colors[i * 3 + 1] = c.g;
-      colors[i * 3 + 2] = c.b;
+        // Gradient coloring across the wave plane
+        const ratioX = i / cols;
+        const ratioZ = j / rows;
+        const vertexColor = new THREE.Color();
+        if (ratioX < 0.5) {
+          vertexColor.lerpColors(colorCyan, colorBlue, ratioX * 2);
+        } else {
+          vertexColor.lerpColors(colorBlue, colorViolet, (ratioX - 0.5) * 2);
+        }
 
-      particlesData.push({
-        t,
-        speed: 0.0015 + Math.random() * 0.002,
-        radius,
-        angle,
-        rotSpeed: (Math.random() - 0.5) * 0.03,
-      });
+        colors[index * 3] = vertexColor.r;
+        colors[index * 3 + 1] = vertexColor.g;
+        colors[index * 3 + 2] = vertexColor.b * (0.8 + ratioZ * 0.4);
+      }
     }
 
-    const particlesGeo = new THREE.BufferGeometry();
-    particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
-    particlesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3).setUsage(THREE.DynamicDrawUsage));
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    const particlesMat = new THREE.PointsMaterial({
-      size: 4,
+    // Particle texture / glow circular point
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(0.3, 'rgba(100, 210, 255, 0.8)');
+      grad.addColorStop(0.7, 'rgba(59, 130, 246, 0.25)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 64, 64);
+    }
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const material = new THREE.PointsMaterial({
+      size: 6.5,
+      map: texture,
       vertexColors: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.7,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
     });
 
-    const flowPoints = new THREE.Points(particlesGeo, particlesMat);
-    scene.add(flowPoints);
+    const wavePoints = new THREE.Points(geometry, material);
+    scene.add(wavePoints);
 
-    // 3. Two 3D Orbital Beacon Rings (representing the 2 Milestone hubs)
-    const ringGeo = new THREE.TorusGeometry(18, 0.6, 8, 32);
-    const ringMat1 = new THREE.MeshBasicMaterial({ 
-      color: 0x06b6d4, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.35 
-    });
-    const ring1 = new THREE.Mesh(ringGeo, ringMat1);
-    ring1.position.set(-60, 50, -10);
-    scene.add(ring1);
-
-    const ringMat2 = new THREE.MeshBasicMaterial({ 
-      color: 0x3b82f6, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.35 
-    });
-    const ring2 = new THREE.Mesh(ringGeo, ringMat2);
-    ring2.position.set(60, -60, -10);
-    scene.add(ring2);
-
-    // 4. Mouse Tracking for 3D Camera Parallax
-    let targetX = 0;
-    let targetY = 0;
+    // 3. Mouse Interaction & Ripple Tracking
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetCameraX = 0;
+    let targetCameraY = 110;
+    let mouseWorldX = 0;
+    let mouseWorldZ = 0;
+    let isMouseOver = false;
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 40;
-      targetY = -((e.clientY - rect.top) / rect.height - 0.5) * 40;
+      if (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      ) {
+        isMouseOver = true;
+        const normX = (e.clientX - rect.left) / rect.width - 0.5;
+        const normY = (e.clientY - rect.top) / rect.height - 0.5;
+
+        mouseX = normX;
+        mouseY = normY;
+
+        targetCameraX = normX * 60;
+        targetCameraY = 110 - normY * 30;
+
+        mouseWorldX = normX * ((cols * spacingX) * 0.9);
+        mouseWorldZ = normY * ((rows * spacingZ) * 0.9);
+      } else {
+        isMouseOver = false;
+      }
     };
+
     window.addEventListener('mousemove', onMouseMove, { passive: true });
 
-    // 5. Window Resize Handler
+    // 4. Resize Handler
     const onResize = () => {
       if (!container) return;
       const w = container.clientWidth;
@@ -133,60 +153,53 @@ export const ThreeExperienceFlow: React.FC<ThreeExperienceFlowProps> = ({ active
     };
     window.addEventListener('resize', onResize);
 
-    // Expose stage color target update
-    let currentTargetColor = new THREE.Color('#3b82f6');
-    (container as any).__setStageColor = (stage: string | null) => {
-      if (stage === 'oneintegral') {
-        currentTargetColor = new THREE.Color('#06b6d4');
-      } else if (stage === 'socialtek') {
-        currentTargetColor = new THREE.Color('#3b82f6');
-      } else {
-        currentTargetColor = new THREE.Color('#60a5fa');
-      }
-    };
-
-    // 6. Animation Loop
+    // 5. Animation Loop
     let animId: number;
-    let clock = new THREE.Clock();
+    let time = 0;
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
+      time += 0.025;
 
-      // Camera parallax
-      camera.position.x += (targetX - camera.position.x) * 0.04;
-      camera.position.y += (targetY - camera.position.y) * 0.04;
-      camera.lookAt(scene.position);
+      // Smooth camera interpolation
+      camera.position.x += (targetCameraX - camera.position.x) * 0.05;
+      camera.position.y += (targetCameraY - camera.position.y) * 0.05;
+      camera.lookAt(0, -15, 0);
 
-      // Rotate beacon rings
-      ring1.rotation.x += 0.01;
-      ring1.rotation.y += 0.015;
-      ring2.rotation.x -= 0.012;
-      ring2.rotation.y += 0.01;
+      // Wave calculation
+      const posArray = geometry.attributes.position.array as Float32Array;
 
-      // Update particle stream
-      const posArr = particlesGeo.attributes.position.array as Float32Array;
-      const colArr = particlesGeo.attributes.color.array as Float32Array;
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const index = i * rows + j;
+          const x = posArray[index * 3];
+          const z = posArray[index * 3 + 2];
 
-      for (let i = 0; i < particleCount; i++) {
-        const p = particlesData[i];
-        p.t = (p.t + p.speed) % 1.0;
-        p.angle += p.rotSpeed;
+          // Harmonic double sine wave
+          let waveY = Math.sin(x * 0.025 + time) * 16 + 
+                      Math.cos(z * 0.035 + time * 0.8) * 16;
 
-        const pt = curve.getPoint(p.t);
-        posArr[i * 3] = pt.x + Math.cos(p.angle) * p.radius;
-        posArr[i * 3 + 1] = pt.y + Math.sin(p.angle) * p.radius;
-        posArr[i * 3 + 2] = pt.z + Math.sin(p.t * Math.PI * 4) * 8;
+          // Interactive cursor ripple
+          if (isMouseOver) {
+            const dx = x - mouseWorldX;
+            const dz = z - mouseWorldZ;
+            const dist = Math.sqrt(dx * dx + dz * dz);
+            const influenceRadius = 140;
 
-        // Dynamic color blend based on position and active stage
-        const targetColor = p.t < 0.5 ? colorAI : colorWeb;
-        colArr[i * 3] += (targetColor.r - colArr[i * 3]) * 0.05;
-        colArr[i * 3 + 1] += (targetColor.g - colArr[i * 3 + 1]) * 0.05;
-        colArr[i * 3 + 2] += (targetColor.b - colArr[i * 3 + 2]) * 0.05;
+            if (dist < influenceRadius) {
+              const force = (1 - dist / influenceRadius);
+              waveY += Math.sin(dist * 0.1 - time * 4) * 28 * force;
+            }
+          }
+
+          posArray[index * 3 + 1] = waveY;
+        }
       }
 
-      particlesGeo.attributes.position.needsUpdate = true;
-      particlesGeo.attributes.color.needsUpdate = true;
+      geometry.attributes.position.needsUpdate = true;
+
+      // Gentle wave mesh tilt
+      wavePoints.rotation.y = Math.sin(time * 0.2) * 0.04;
 
       renderer.render(scene, camera);
     };
@@ -198,11 +211,9 @@ export const ThreeExperienceFlow: React.FC<ThreeExperienceFlowProps> = ({ active
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
 
-      particlesGeo.dispose();
-      particlesMat.dispose();
-      ringGeo.dispose();
-      ringMat1.dispose();
-      ringMat2.dispose();
+      geometry.dispose();
+      material.dispose();
+      texture.dispose();
       renderer.dispose();
 
       if (container.contains(renderer.domElement)) {
@@ -211,17 +222,10 @@ export const ThreeExperienceFlow: React.FC<ThreeExperienceFlowProps> = ({ active
     };
   }, []);
 
-  useEffect(() => {
-    const container = mountRef.current;
-    if (container && (container as any).__setStageColor) {
-      (container as any).__setStageColor(activeStage || null);
-    }
-  }, [activeStage]);
-
   return (
     <div 
       ref={mountRef} 
-      className="absolute inset-0 pointer-events-none opacity-50 dark:opacity-40 transition-opacity duration-700 overflow-hidden" 
+      className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-50 transition-opacity duration-700 overflow-hidden" 
     />
   );
 };
