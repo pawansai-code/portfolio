@@ -151,32 +151,6 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: "eduverse",
-    title: "Eduverse Platform",
-    tagline: "Gamified Academic Hub with Server-Side Proxied LLaMA 3.3-70B",
-    description: "All-in-one educational platform integrating Meta LLaMA 3.3-70B via Groq LPU, gamified chess engine, interactive tools hub, and streak journaling.",
-    longDescription: "A modern centralized digital hub designed to eliminate academic fragmentation for students. Features an enterprise-grade AI academic assistant powered by Meta LLaMA 3.3-70B via Groq (with sub-200ms first-token latency and zero browser key exposure), client-side chess cognitive training (chess.js + react-chessboard) with XP milestones, encrypted personal journaling with habit streaks, and an extensible tools hub.",
-    category: "fullstack",
-    tech: ["React", "TypeScript", "Node.js", "Express", "Groq AI SDK", "Firebase Auth", "Tailwind CSS"],
-    role: "Full-Stack Architect & Product Designer",
-    github: "https://github.com/pawansai-code",
-    demo: null,
-    images: ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop"],
-    featured: true,
-    highlights: [
-      "Server-side Groq SDK proxy streaming LLaMA 3.3-70B with enterprise token isolation",
-      "Gamified cognitive layer powered by chess.js with move validation and XP achievements",
-      "Encrypted personal journaling with automated streak tracker and motivational milestones",
-      "Role-Aware Dual Dashboards (Admin oversight vs. Student learning environment)",
-      "Plugin-style modular Tools Hub supporting hot-registered academic utilities"
-    ],
-    metrics: [
-      { label: "AI Inference", value: "< 200ms TTFT" },
-      { label: "Model", value: "LLaMA 3.3-70B Versatile" },
-      { label: "Security", value: "Zero Client Key Exposure" }
-    ]
-  },
-  {
     id: "drone-safety",
     title: "Drone-Based Women Safety Analytics",
     tagline: "Aerial Computer Vision & MobileNetV2 Surveillance",
