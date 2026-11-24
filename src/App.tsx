@@ -8,6 +8,7 @@ import { Projects } from './components/Projects';
 import { Experience } from './components/Experience';
 import { Hackathons } from './components/Hackathons';
 import { Workshops } from './components/Workshops';
+import { Activities } from './components/Activities';
 import { Highlights } from './components/Highlights';
 import { CreativeGallery } from './components/CreativeGallery';
 import { Contact } from './components/Contact';
@@ -39,6 +40,7 @@ export const App: React.FC = () => {
           <Experience />
           <Hackathons />
           <Workshops />
+          <Activities />
           <Highlights />
           <CreativeGallery />
           <Contact />

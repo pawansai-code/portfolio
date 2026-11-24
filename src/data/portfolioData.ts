@@ -1,4 +1,4 @@
-import { Project, SkillCategory, Experience, Hackathon, Workshop, Certification } from '../types';
+import { Project, SkillCategory, Experience, Hackathon, Workshop, Certification, Activity } from '../types';
 
 // Asset imports
 import profilePic from '../assets/profile pic.jpeg';
@@ -421,5 +421,24 @@ export const certifications: Certification[] = [
     issuer: "Great Learning",
     issueDate: "Certified",
     badgeText: "Modern ES6+ Fundamentals"
+  }
+];
+
+export const activities: Activity[] = [
+  {
+    id: "nidar-drone",
+    title: "NIDAR - Disaster Management",
+    subtitle: "Dual-Autonomous Drones & Emergency Medical Delivery",
+    category: "Autonomous Systems & Robotics",
+    role: "Frontend, Software Integration, Computer Vision & GCS",
+    period: "Active Initiative",
+    description: "Developing dual PX4 + MAVROS autonomous drones for disaster response, combining survivor detection, target localization, and medical-kit delivery.",
+    highlights: [
+      "Engineered Ground Control Station (GCS) telemetry interfaces and live monitoring system",
+      "Integrated PX4 flight controller stack with MAVROS communication layer for autonomous missions",
+      "Implemented computer vision algorithms for survivor detection and target localization",
+      "Designed software controls for a 10-kit emergency payload dropping mechanism"
+    ],
+    tags: ["PX4", "MAVROS", "Computer Vision", "Ground Control Station (GCS)", "Autonomous Robotics", "Payload Systems"]
   }
 ];

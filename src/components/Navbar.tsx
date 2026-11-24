@@ -30,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
         { id: 'contact', key: 'contact' },
         { id: 'creative', key: 'experience' },
         { id: 'certifications', key: 'experience' },
+        { id: 'activities', key: 'experience' },
         { id: 'workshops', key: 'experience' },
         { id: 'hackathons', key: 'experience' },
         { id: 'experience', key: 'experience' },

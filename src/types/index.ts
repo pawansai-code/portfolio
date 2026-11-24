@@ -84,3 +84,15 @@ export interface Certification {
   image?: string;
   badgeText: string;
 }
+
+export interface Activity {
+  id: string;
+  title: string;
+  subtitle?: string;
+  category?: string;
+  role: string;
+  period?: string;
+  description: string;
+  highlights: string[];
+  tags: string[];
+}
