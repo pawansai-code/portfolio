@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Briefcase, Calendar, MapPin, CheckCircle2, 
-  ArrowDown, Sparkles, Building2, Zap, Radio,
+  Sparkles, Building2, Zap, Radio,
   Cpu, Layers, Code2
 } from 'lucide-react';
 import { experiences } from '../data/portfolioData';
@@ -171,24 +171,6 @@ const InteractiveExperienceCard: React.FC<{
           </span>
         ))}
       </div>
-
-      {/* Animated Downward Flow Connector to Next Stage */}
-      {index === 0 && (
-        <div className="mt-6 pt-4 border-t border-dashed border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400 relative z-10">
-          <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-bold">
-            <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <ArrowDown className="w-4 h-4" />
-            </motion.div>
-            <span>Flowing to next production milestone</span>
-          </div>
-          <span className="text-slate-500 dark:text-slate-400 text-[11px]">
-            SocialTek AI & ML (10/2025 – 03/2026)
-          </span>
-        </div>
-      )}
     </div>
   );
 };
