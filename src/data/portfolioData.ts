@@ -253,23 +253,6 @@ export const skillCategories: SkillCategory[] = [
 
 export const experiences: Experience[] = [
   {
-    id: "socialtek",
-    role: "Full-Stack Developer Intern",
-    company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
-    location: "Chennai, India",
-    duration: "5 Months (10/2025 – 03/2026)",
-    period: "Recent (Latest)",
-    type: "Internship",
-    badge: "Latest Role • Production Web",
-    description: [
-      "Engineered core product user interfaces with React and TypeScript, transitioning complex business logic into clean, reusable modular components.",
-      "Integrated React Redux Toolkit for centralized state management, eliminating prop drilling and reducing redundant API requests across major user flows.",
-      "Enforced industry-standard software engineering best practices: strict folder conventions, readable naming patterns, and comprehensive Git workflows.",
-      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases."
-    ],
-    skills: ["React.js", "TypeScript", "Redux Toolkit", "JavaScript", "REST APIs", "Git", "Agile Sprints"]
-  },
-  {
     id: "oneintegral",
     role: "Trainee on Generative AI (Intern)",
     company: "OneIntegral Technologies Pvt Ltd (Data Twin)",
@@ -285,6 +268,23 @@ export const experiences: Experience[] = [
       "Collaborated on data preprocessing workflows to ingest structured financial logs and unstructured invoices into unified vector representations."
     ],
     skills: ["Generative AI", "RAG", "Pinecone", "LangChain", "Ollama", "Python"]
+  },
+  {
+    id: "socialtek",
+    role: "Full-Stack Developer Intern",
+    company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
+    location: "Chennai, India",
+    duration: "5 Months (10/2025 – 03/2026)",
+    period: "Production Web",
+    type: "Internship",
+    badge: "Production Web Engineering",
+    description: [
+      "Engineered core product user interfaces with React and TypeScript, transitioning complex business logic into clean, reusable modular components.",
+      "Integrated React Redux Toolkit for centralized state management, eliminating prop drilling and reducing redundant API requests across major user flows.",
+      "Enforced industry-standard software engineering best practices: strict folder conventions, readable naming patterns, and comprehensive Git workflows.",
+      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases."
+    ],
+    skills: ["React.js", "TypeScript", "Redux Toolkit", "JavaScript", "REST APIs", "Git", "Agile Sprints"]
   }
 ];
 
