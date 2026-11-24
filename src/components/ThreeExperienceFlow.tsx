@@ -8,198 +8,221 @@ export const ThreeExperienceFlow: React.FC = () => {
     const container = mountRef.current;
     if (!container) return;
 
-    const width = container.clientWidth || window.innerWidth;
-    const height = container.clientHeight || 900;
+    let width = container.clientWidth || window.innerWidth;
+    let height = container.clientHeight || 900;
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
-    camera.position.set(0, 110, 240);
-    camera.lookAt(0, -20, 0);
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    camera.position.set(0, 0, 75);
 
     const renderer = new THREE.WebGLRenderer({ 
       alpha: true, 
-      antialias: false,
+      antialias: true,
       powerPreference: 'high-performance' 
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 2. Interactive 3D Fluid Quantum Wave Particle Grid
-    // 50 x 30 = 1500 dynamic glowing nodes
-    const cols = 55;
-    const rows = 35;
-    const numParticles = cols * rows;
-    const spacingX = 14;
-    const spacingZ = 14;
-    const offsetX = ((cols - 1) * spacingX) / 2;
-    const offsetZ = ((rows - 1) * spacingZ) / 2;
+    // 2. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    scene.add(ambientLight);
 
-    const positions = new Float32Array(numParticles * 3);
-    const colors = new Float32Array(numParticles * 3);
-    const initialY = new Float32Array(numParticles);
+    const cyanLight = new THREE.PointLight(0x00f2fe, 3.5, 120);
+    cyanLight.position.set(25, 25, 30);
+    scene.add(cyanLight);
 
-    // Color gradients: AI Cyan (#00f2fe) to Electric Blue (#4facfe) and Violet (#7f00ff)
-    const colorCyan = new THREE.Color('#00f2fe');
-    const colorBlue = new THREE.Color('#3b82f6');
-    const colorViolet = new THREE.Color('#8b5cf6');
+    const blueLight = new THREE.PointLight(0x3b82f6, 3.5, 120);
+    blueLight.position.set(-25, -25, 30);
+    scene.add(blueLight);
 
-    for (let i = 0; i < cols; i++) {
-      for (let j = 0; j < rows; j++) {
-        const index = i * rows + j;
-        const x = i * spacingX - offsetX;
-        const z = j * spacingZ - offsetZ;
-        const y = 0;
+    const coreGroup = new THREE.Group();
+    // Position comfortably in the upper-right / center background
+    coreGroup.position.set(22, 10, -5);
+    scene.add(coreGroup);
 
-        positions[index * 3] = x;
-        positions[index * 3 + 1] = y;
-        positions[index * 3 + 2] = z;
-        initialY[index] = y;
+    // 3. Central Faceted Quantum Icosahedron Core
+    const innerGeo = new THREE.IcosahedronGeometry(7.5, 1);
+    const innerWireMat = new THREE.MeshBasicMaterial({
+      color: 0x00f2fe,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.65,
+    });
+    const innerCore = new THREE.Mesh(innerGeo, innerWireMat);
+    coreGroup.add(innerCore);
 
-        // Gradient coloring across the wave plane
-        const ratioX = i / cols;
-        const ratioZ = j / rows;
-        const vertexColor = new THREE.Color();
-        if (ratioX < 0.5) {
-          vertexColor.lerpColors(colorCyan, colorBlue, ratioX * 2);
-        } else {
-          vertexColor.lerpColors(colorBlue, colorViolet, (ratioX - 0.5) * 2);
-        }
+    // Solid inner glowing nucleus
+    const nucleusGeo = new THREE.SphereGeometry(3.6, 24, 24);
+    const nucleusMat = new THREE.MeshStandardMaterial({
+      color: 0x3b82f6,
+      emissive: 0x00f2fe,
+      emissiveIntensity: 0.6,
+      roughness: 0.2,
+      metalness: 0.8,
+    });
+    const nucleus = new THREE.Mesh(nucleusGeo, nucleusMat);
+    coreGroup.add(nucleus);
 
-        colors[index * 3] = vertexColor.r;
-        colors[index * 3 + 1] = vertexColor.g;
-        colors[index * 3 + 2] = vertexColor.b * (0.8 + ratioZ * 0.4);
-      }
+    // 4. Outer Gyroscopic Orbital Rings
+    const ringGeo1 = new THREE.TorusGeometry(12.5, 0.28, 16, 64);
+    const ringMat1 = new THREE.MeshStandardMaterial({
+      color: 0x3b82f6,
+      emissive: 0x1d4ed8,
+      emissiveIntensity: 0.4,
+      metalness: 0.9,
+      roughness: 0.2,
+    });
+    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+    coreGroup.add(ring1);
+
+    const ringGeo2 = new THREE.TorusGeometry(15.5, 0.22, 16, 64);
+    const ringMat2 = new THREE.MeshStandardMaterial({
+      color: 0x8b5cf6,
+      emissive: 0x6d28d9,
+      emissiveIntensity: 0.4,
+      metalness: 0.9,
+      roughness: 0.2,
+    });
+    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+    ring2.rotation.x = Math.PI / 2.5;
+    coreGroup.add(ring2);
+
+    const ringGeo3 = new THREE.TorusGeometry(18.5, 0.18, 16, 64);
+    const ringMat3 = new THREE.MeshStandardMaterial({
+      color: 0x00f2fe,
+      emissive: 0x0891b2,
+      emissiveIntensity: 0.4,
+      metalness: 0.9,
+      roughness: 0.2,
+    });
+    const ring3 = new THREE.Mesh(ringGeo3, ringMat3);
+    ring3.rotation.y = Math.PI / 3;
+    coreGroup.add(ring3);
+
+    // 5. Swirling Stardust Particle Field (180 particles)
+    const particleCount = 180;
+    const particlesGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
+    const particleSpeeds: number[] = [];
+
+    const cCyan = new THREE.Color(0x00f2fe);
+    const cBlue = new THREE.Color(0x3b82f6);
+    const cViolet = new THREE.Color(0x8b5cf6);
+
+    for (let i = 0; i < particleCount; i++) {
+      const radius = 9 + Math.random() * 20;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = (Math.random() - 0.5) * Math.PI;
+
+      particlePositions[i * 3] = radius * Math.cos(theta) * Math.cos(phi);
+      particlePositions[i * 3 + 1] = radius * Math.sin(phi);
+      particlePositions[i * 3 + 2] = radius * Math.sin(theta) * Math.cos(phi);
+
+      const chosenColor = Math.random() < 0.4 ? cCyan : Math.random() < 0.7 ? cBlue : cViolet;
+      particleColors[i * 3] = chosenColor.r;
+      particleColors[i * 3 + 1] = chosenColor.g;
+      particleColors[i * 3 + 2] = chosenColor.b;
+
+      particleSpeeds.push(0.003 + Math.random() * 0.006);
     }
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    particlesGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    particlesGeo.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
 
-    // Particle texture / glow circular point
-    const canvas = document.createElement('canvas');
-    canvas.width = 64;
-    canvas.height = 64;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grad.addColorStop(0.3, 'rgba(100, 210, 255, 0.8)');
-      grad.addColorStop(0.7, 'rgba(59, 130, 246, 0.25)');
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 64, 64);
-    }
-    const texture = new THREE.CanvasTexture(canvas);
-
-    const material = new THREE.PointsMaterial({
-      size: 6.5,
-      map: texture,
+    const particlesMat = new THREE.PointsMaterial({
+      size: 1.8,
       vertexColors: true,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.8,
       blending: THREE.AdditiveBlending,
-      depthWrite: false,
     });
 
-    const wavePoints = new THREE.Points(geometry, material);
-    scene.add(wavePoints);
+    const particleSystem = new THREE.Points(particlesGeo, particlesMat);
+    coreGroup.add(particleSystem);
 
-    // 3. Mouse Interaction & Ripple Tracking
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetCameraX = 0;
-    let targetCameraY = 110;
-    let mouseWorldX = 0;
-    let mouseWorldZ = 0;
-    let isMouseOver = false;
+    // 6. Interactive Mouse Tracking
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let targetGroupX = 22;
+    let targetGroupY = 10;
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      if (
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
-      ) {
-        isMouseOver = true;
-        const normX = (e.clientX - rect.left) / rect.width - 0.5;
-        const normY = (e.clientY - rect.top) / rect.height - 0.5;
+      const normX = (e.clientX - rect.left) / rect.width - 0.5;
+      const normY = (e.clientY - rect.top) / rect.height - 0.5;
 
-        mouseX = normX;
-        mouseY = normY;
+      targetRotX = normY * 1.2;
+      targetRotY = normX * 1.5;
 
-        targetCameraX = normX * 60;
-        targetCameraY = 110 - normY * 30;
-
-        mouseWorldX = normX * ((cols * spacingX) * 0.9);
-        mouseWorldZ = normY * ((rows * spacingZ) * 0.9);
-      } else {
-        isMouseOver = false;
-      }
+      targetGroupX = 22 + normX * 12;
+      targetGroupY = 10 - normY * 12;
     };
 
     window.addEventListener('mousemove', onMouseMove, { passive: true });
 
-    // 4. Resize Handler
+    // 7. Responsive Resizing
     const onResize = () => {
       if (!container) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      camera.aspect = w / h;
+      width = container.clientWidth;
+      height = container.clientHeight;
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      renderer.setSize(width, height);
+
+      // On smaller screens, center the 3D core slightly
+      if (width < 768) {
+        coreGroup.position.set(0, 5, -15);
+        coreGroup.scale.set(0.65, 0.65, 0.65);
+      } else {
+        coreGroup.position.set(22, 10, -5);
+        coreGroup.scale.set(1, 1, 1);
+      }
     };
     window.addEventListener('resize', onResize);
+    onResize();
 
-    // 5. Animation Loop
+    // 8. Animation Loop
     let animId: number;
-    let time = 0;
+    let clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
-      time += 0.025;
+      const time = clock.getElapsedTime();
 
-      // Smooth camera interpolation
-      camera.position.x += (targetCameraX - camera.position.x) * 0.05;
-      camera.position.y += (targetCameraY - camera.position.y) * 0.05;
-      camera.lookAt(0, -15, 0);
+      // Smooth mouse follow
+      coreGroup.rotation.x += (targetRotX - coreGroup.rotation.x) * 0.04;
+      coreGroup.rotation.y += (targetRotY - coreGroup.rotation.y) * 0.04;
 
-      // Wave calculation
-      const posArray = geometry.attributes.position.array as Float32Array;
+      coreGroup.position.x += (targetGroupX - coreGroup.position.x) * 0.03;
+      coreGroup.position.y += (targetGroupY - coreGroup.position.y) * 0.03;
 
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const index = i * rows + j;
-          const x = posArray[index * 3];
-          const z = posArray[index * 3 + 2];
+      // Gyroscopic continuous rotations
+      innerCore.rotation.x = time * 0.4;
+      innerCore.rotation.y = time * 0.6;
 
-          // Harmonic double sine wave
-          let waveY = Math.sin(x * 0.025 + time) * 16 + 
-                      Math.cos(z * 0.035 + time * 0.8) * 16;
+      ring1.rotation.x = time * 0.5;
+      ring1.rotation.z = time * 0.3;
 
-          // Interactive cursor ripple
-          if (isMouseOver) {
-            const dx = x - mouseWorldX;
-            const dz = z - mouseWorldZ;
-            const dist = Math.sqrt(dx * dx + dz * dz);
-            const influenceRadius = 140;
+      ring2.rotation.y = -time * 0.45;
+      ring2.rotation.z = time * 0.25;
 
-            if (dist < influenceRadius) {
-              const force = (1 - dist / influenceRadius);
-              waveY += Math.sin(dist * 0.1 - time * 4) * 28 * force;
-            }
-          }
+      ring3.rotation.x = -time * 0.35;
+      ring3.rotation.y = time * 0.4;
 
-          posArray[index * 3 + 1] = waveY;
-        }
-      }
+      // Gentle floating levitation
+      coreGroup.position.y += Math.sin(time * 1.5) * 0.025;
 
-      geometry.attributes.position.needsUpdate = true;
+      // Swirling particles
+      particleSystem.rotation.y = time * 0.15;
+      particleSystem.rotation.x = Math.sin(time * 0.2) * 0.1;
 
-      // Gentle wave mesh tilt
-      wavePoints.rotation.y = Math.sin(time * 0.2) * 0.04;
+      // Breathing light pulse
+      const pulse = Math.sin(time * 2.5) * 0.5 + 1.2;
+      nucleusMat.emissiveIntensity = pulse * 0.5;
+      innerWireMat.opacity = 0.5 + Math.sin(time * 2) * 0.2;
 
       renderer.render(scene, camera);
     };
@@ -211,9 +234,18 @@ export const ThreeExperienceFlow: React.FC = () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
 
-      geometry.dispose();
-      material.dispose();
-      texture.dispose();
+      innerGeo.dispose();
+      innerWireMat.dispose();
+      nucleusGeo.dispose();
+      nucleusMat.dispose();
+      ringGeo1.dispose();
+      ringMat1.dispose();
+      ringGeo2.dispose();
+      ringMat2.dispose();
+      ringGeo3.dispose();
+      ringMat3.dispose();
+      particlesGeo.dispose();
+      particlesMat.dispose();
       renderer.dispose();
 
       if (container.contains(renderer.domElement)) {
@@ -225,7 +257,7 @@ export const ThreeExperienceFlow: React.FC = () => {
   return (
     <div 
       ref={mountRef} 
-      className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-50 transition-opacity duration-700 overflow-hidden" 
+      className="absolute inset-0 pointer-events-none opacity-70 dark:opacity-60 transition-opacity duration-700 overflow-hidden" 
     />
   );
 };

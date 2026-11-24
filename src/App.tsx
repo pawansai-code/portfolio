@@ -13,7 +13,6 @@ import { CreativeGallery } from './components/CreativeGallery';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { InteractiveTerminal } from './components/InteractiveTerminal';
-import { JourneyTrainHUD } from './components/JourneyTrainHUD';
 import { Terminal } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -47,9 +46,6 @@ export const App: React.FC = () => {
 
         {/* Footer */}
         <Footer />
-
-        {/* Interactive Train Conductor Journey HUD */}
-        <JourneyTrainHUD />
 
         {/* Interactive CLI Terminal Window */}
         <InteractiveTerminal
