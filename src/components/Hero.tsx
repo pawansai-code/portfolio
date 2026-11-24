@@ -51,7 +51,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[95vh] flex items-center justify-center pt-28 pb-16 overflow-hidden bg-[#090d16]"
+      className="relative min-h-[95vh] flex items-center justify-center pt-28 pb-16 overflow-hidden bg-slate-50 dark:bg-[#090d16] transition-colors duration-300"
     >
       {/* Background Ambient Glows & Grid */}
       <div className="absolute inset-0 pointer-events-none -z-10">
@@ -83,7 +83,7 @@ export const Hero: React.FC = () => {
 
             {/* Name: PAWANSAI GOPI in 2 lines with prominent typography */}
             <motion.h1
-              className="text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-[#b8d9ff] leading-[1.08] mb-4 select-none"
+              className="text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-slate-900 dark:text-[#b8d9ff] leading-[1.08] mb-4 select-none"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -121,7 +121,7 @@ export const Hero: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.4 }}
-                  className="text-xl sm:text-2xl font-bold font-sans text-blue-500 dark:text-blue-400 tracking-wide"
+                  className="text-xl sm:text-2xl font-bold font-sans text-blue-600 dark:text-blue-400 tracking-wide"
                 >
                   {roles[roleIndex]}
                 </motion.h3>
@@ -133,7 +133,7 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed mb-8"
+              className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed mb-8"
             >
               I build exceptional digital experiences. Combining deep technical expertise with a sharp eye for design, I craft modern, responsive, and performant web applications.
             </motion.p>
@@ -155,16 +155,16 @@ export const Hero: React.FC = () => {
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-700 dark:text-slate-200 bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 shadow-sm"
               >
                 <span>Contact Me</span>
               </a>
 
               <button
                 onClick={handleResumeClick}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-300 dark:border-slate-700/60 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
               >
-                <Download className="w-4 h-4 text-cyan-400" />
+                <Download className="w-4 h-4 text-blue-500 dark:text-cyan-400" />
                 <span>Resume PDF</span>
               </button>
             </motion.div>
@@ -174,17 +174,17 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.6 }}
-              className="flex items-center gap-3 pt-4 border-t border-slate-800/80 w-full"
+              className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 w-full"
             >
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-wider mr-2">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-2">
                 Socials:
               </span>
               <a
                 href={personalInfo.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-all border border-slate-700/60"
-                aria-label="GitHub"
+                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
+                aria-label="GitHub Profile"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -193,8 +193,8 @@ export const Hero: React.FC = () => {
                 href={personalInfo.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-blue-600 text-slate-300 hover:text-white transition-all border border-slate-700/60"
-                aria-label="LinkedIn"
+                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
+                aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -203,17 +203,17 @@ export const Hero: React.FC = () => {
                 href={personalInfo.socials.artGallery}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-purple-600 text-slate-300 hover:text-white transition-all border border-slate-700/60 flex items-center gap-1.5 text-xs font-medium"
+                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
                 aria-label="Art Gallery"
+                title="Pawan's Online Art Gallery"
               >
-                <Palette className="w-4 h-4 text-purple-400" />
-                <span className="hidden sm:inline">Art Gallery</span>
+                <Palette className="w-4 h-4" />
               </a>
 
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-emerald-600 text-slate-300 hover:text-white transition-all border border-slate-700/60"
-                aria-label="Email"
+                className="p-2.5 rounded-xl bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700/60 shadow-sm"
+                aria-label="Email Me"
               >
                 <Mail className="w-4 h-4" />
               </a>

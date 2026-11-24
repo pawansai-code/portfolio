@@ -41,9 +41,9 @@ export const personalInfo = {
   location: "Chennai, India",
   status: "Available for Full-time Roles & High-Impact Projects",
   education: {
-    degree: "B.E. in Computer Science and Engineering",
-    current: true,
-    focus: "Full-Stack Development, Machine Learning, System Architecture"
+    college: "Prathyusha Engineering College",
+    degree: "B.E. Computer Science and Engineering",
+    passYear: "2023 - 2027",
   },
   socials: {
     github: "https://github.com/pawansai-code",

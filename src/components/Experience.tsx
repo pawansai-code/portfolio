@@ -5,7 +5,7 @@ import { experiences } from '../data/portfolioData';
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 relative overflow-hidden bg-[#090d16]">
+    <section id="experience" className="py-24 relative overflow-hidden bg-slate-50/60 dark:bg-[#090d16] transition-colors duration-300">
       
       {/* Background glow */}
       <div className="absolute top-1/2 left-10 w-96 h-96 bg-blue-500/10 blur-[140px] rounded-full pointer-events-none" />
@@ -17,10 +17,10 @@ export const Experience: React.FC = () => {
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Professional Timeline
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
-            Industry Experience & <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Enterprise Roles</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
+            Industry Experience & <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Enterprise Roles</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-300">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
             Hands-on software delivery across enterprise generative AI deployments and production full-stack engineering.
           </p>
         </div>

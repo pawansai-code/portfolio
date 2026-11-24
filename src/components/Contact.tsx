@@ -40,7 +40,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-[#090d16] border-t border-slate-200/60 dark:border-slate-800/80">
+    <section id="contact" className="py-24 relative overflow-hidden bg-white dark:bg-[#090d16] border-t border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
       
       {/* Background glow */}
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
@@ -52,10 +52,10 @@ export const Contact: React.FC = () => {
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Get in Touch
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
-            Let's Build Something <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Extraordinary</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
+            Let's Build Something <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Extraordinary</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-300">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
             Have a project in mind, looking for a full-stack engineer, or exploring collaboration in Generative AI? Let's connect.
           </p>
         </div>
