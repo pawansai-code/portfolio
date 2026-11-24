@@ -59,7 +59,7 @@ export const personalInfo = {
   stats: [
     { label: "Projects Completed", value: "10+" },
     { label: "Hackathon Honors", value: "3+" },
-    { label: "Industry Internships", value: "2" },
+    { label: "Industry Internships", value: "3" },
     { label: "Code Commits", value: "500+" },
   ]
 };
@@ -253,6 +253,23 @@ export const skillCategories: SkillCategory[] = [
 
 export const experiences: Experience[] = [
   {
+    id: "socialtek",
+    role: "Full-Stack Developer Intern",
+    company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
+    location: "Chennai, India",
+    duration: "5 Months (10/2025 – 03/2026)",
+    period: "Recent (Latest)",
+    type: "Internship",
+    badge: "Latest Role • Production Web",
+    description: [
+      "Engineered core product user interfaces with React and TypeScript, transitioning complex business logic into clean, reusable modular components.",
+      "Integrated React Redux Toolkit for centralized state management, eliminating prop drilling and reducing redundant API requests across major user flows.",
+      "Enforced industry-standard software engineering best practices: strict folder conventions, readable naming patterns, and comprehensive Git workflows.",
+      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases."
+    ],
+    skills: ["React.js", "TypeScript", "Redux Toolkit", "JavaScript", "REST APIs", "Git", "Agile Sprints"]
+  },
+  {
     id: "oneintegral",
     role: "Trainee on Generative AI (Intern)",
     company: "OneIntegral Technologies Pvt Ltd (Data Twin)",
@@ -270,21 +287,20 @@ export const experiences: Experience[] = [
     skills: ["Generative AI", "RAG", "Pinecone", "LangChain", "Ollama", "Python"]
   },
   {
-    id: "socialtek",
-    role: "Full-Stack Developer Intern",
-    company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
-    location: "Chennai, India",
-    duration: "5 Months",
-    period: "Recent",
+    id: "virtualtech",
+    role: "Machine Learning Intern",
+    company: "Virtual Tech Services",
+    location: "Remote / Chennai, India",
+    duration: "21 Days (Intensive)",
+    period: "Early Engineering",
     type: "Internship",
-    badge: "Production Web Engineering",
+    badge: "ML & Data Science Foundation",
     description: [
-      "Engineered core product user interfaces with React and TypeScript, transitioning complex business logic into clean, reusable modular components.",
-      "Integrated React Redux Toolkit for centralized state management, eliminating prop drilling and reducing redundant API requests across major user flows.",
-      "Enforced industry-standard software engineering best practices: strict folder conventions, readable naming patterns, and comprehensive Git workflows.",
-      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases."
+      "Trained exploratory machine learning classification models on historical meteorological data for local weather pattern prediction.",
+      "Leveraged Python, NumPy, Pandas, and Scikit-Learn for data cleaning, feature normalization, and evaluating confusion matrices.",
+      "Gained foundational experience in production ML pipelines and algorithmic data preprocessing."
     ],
-    skills: ["React.js", "Redux Toolkit", "TypeScript", "JavaScript", "REST APIs", "Git", "Client Iteration"]
+    skills: ["Python", "Machine Learning", "Scikit-Learn", "Pandas", "NumPy"]
   }
 ];
 
