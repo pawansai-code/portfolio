@@ -95,22 +95,27 @@ export const About: React.FC = () => {
             >
               {/* Narrative Bio */}
               <div className="lg:col-span-5 p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 backdrop-blur-xl shadow-xl">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
                   Who I Am
                 </h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-sm sm:text-base">
-                  {personalInfo.extendedBio}
-                </p>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base mb-6">
-                  Whether formulating vector search architectures with Pinecone and Ollama, or crafting responsive web dashboards with React and Tailwind CSS, I approach every engineering problem with deep curiosity and high standards for craftsmanship.
-                </p>
+                
+                <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base mb-6">
+                  {personalInfo.whoAmIParagraphs.map((paragraph, idx) => (
+                    <p 
+                      key={idx}
+                      className={idx === personalInfo.whoAmIParagraphs.length - 1 ? "font-semibold text-blue-600 dark:text-blue-400 pt-1" : ""}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
 
                 <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                   <div>
                     <span className="block text-xs font-mono text-slate-500 uppercase">Current Focus</span>
                     <span className="font-semibold text-sm text-slate-800 dark:text-slate-200">
-                      Production RAG & Next-Gen Frontends
+                      Full Stack (MERN) & Machine Learning
                     </span>
                   </div>
                   <a

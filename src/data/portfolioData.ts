@@ -35,7 +35,13 @@ export const personalInfo = {
     "Hackathon Winner & Tech Innovator"
   ],
   bio: "Engineering high-performance web systems and intelligent AI solutions. Computer Science Engineer with hands-on enterprise internship experience in Generative AI (RAG, vector databases, local LLMs) and modern full-stack web applications. Passionate about bridging technical rigor with fluid, human-centric design.",
-  extendedBio: "My journey started in 10th grade driven by a deep fascination with computing. In college, that grew into building Machine Learning models with Python, followed by real-world enterprise applications in Generative AI. Today, I develop end-to-end applications combining modern React/TypeScript frontends with robust Python/Django and Node microservices, vector search pipelines, and intuitive UI/UX. When I'm not coding, I sharpen my focus through fine arts and sketching.",
+  whoAmIParagraphs: [
+    "I'm currently seeking my Bachelor's degree in Computer Science Engineering. My journey began in 10th grade with a dream of working in the IT field.",
+    "After entering college, I discovered a passion for Machine Learning and started mastering Python. This led to a 21-day internship at \"Virtual Tech Services,\" where I applied algorithms to real-world problems and built a \"Weather Classification\" project.",
+    "Now, I'm expanding my horizons to become a Full Stack Developer, mastering the MERN stack while keeping my ML roots strong. In my free time, I create art to stay focused and creative.",
+    "Open to collaborations in Full Stack and ML—let's explore new origins together!"
+  ],
+  extendedBio: "I'm currently seeking my Bachelor's degree in Computer Science Engineering. My journey began in 10th grade with a dream of working in the IT field. After entering college, I discovered a passion for Machine Learning and started mastering Python. This led to a 21-day internship at \"Virtual Tech Services,\" where I applied algorithms to real-world problems and built a \"Weather Classification\" project. Now, I'm expanding my horizons to become a Full Stack Developer, mastering the MERN stack while keeping my ML roots strong. In my free time, I create art to stay focused and creative. Open to collaborations in Full Stack and ML—let's explore new origins together!",
   email: "pawangopi2006@gmail.com",
   phone: "+91 9080201820",
   location: "Chennai, India",
