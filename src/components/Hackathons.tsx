@@ -9,36 +9,27 @@ export const Hackathons: React.FC = () => {
   const [selectedHackathon, setSelectedHackathon] = useState<Hackathon | null>(null);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
-  const getTrophyColor = (type: string) => {
-    switch (type) {
-      case 'runner-up':
-        return 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20';
-      case 'top5':
-        return 'text-amber-400 bg-amber-500/10 border-amber-500/20';
-      case 'finalist':
-        return 'text-purple-400 bg-purple-500/10 border-purple-500/20';
-      default:
-        return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
-    }
+  const getTrophyColor = (_type: string) => {
+    return 'text-blue-300 bg-blue-600/30 border-blue-400/40 shadow-sm shadow-blue-500/20';
   };
 
   return (
-    <section id="hackathons" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
+    <section id="hackathons" className="py-24 relative overflow-hidden bg-[#090d16] border-y border-slate-800/80">
       
       {/* Background glow */}
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-amber-500/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-mono font-semibold tracking-wider uppercase mb-3 border border-amber-500/20">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Competitive Triumphs
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Hackathons & <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 bg-clip-text text-transparent">Engineering Contests</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
+            Hackathons & <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Engineering Contests</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-base sm:text-lg text-slate-300">
             Pushing boundaries under intense time constraints — building real-world solutions that win podium finishes.
           </p>
         </div>
@@ -52,7 +43,7 @@ export const Hackathons: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-sm hover:shadow-xl overflow-hidden flex flex-col justify-between"
+              className="group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 overflow-hidden flex flex-col justify-between"
             >
               <div>
                 {/* Photo Header */}
@@ -87,7 +78,7 @@ export const Hackathons: React.FC = () => {
                     <span>{h.date}</span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-amber-500 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-400 transition-colors">
                     {h.title}
                   </h3>
 
@@ -113,7 +104,7 @@ export const Hackathons: React.FC = () => {
               <div className="p-6 pt-0">
                 <button
                   onClick={() => setSelectedHackathon(h)}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-amber-500 hover:text-white dark:hover:bg-amber-500 dark:hover:text-white transition-all shadow-sm"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all shadow-sm"
                 >
                   <span>Read Hackathon Case Study</span>
                   <ArrowRight className="w-4 h-4" />

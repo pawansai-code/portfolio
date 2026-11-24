@@ -49,22 +49,22 @@ export const Projects: React.FC<ProjectsProps> = ({ initialFilter }) => {
   const featuredFlagship = projectsData.find(p => p.id === 'codelens');
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
+    <section id="projects" className="py-24 relative overflow-hidden bg-[#090d16]">
       
       {/* Background radial glow */}
-      <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-blue-600/5 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-mono font-semibold tracking-wider uppercase mb-3 border border-blue-500/20">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Engineered Solutions
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Featured Projects & <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400 bg-clip-text text-transparent">AI Systems</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
+            Featured Projects & <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">AI Systems</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-base sm:text-lg text-slate-300">
             Production-grade systems incorporating intelligent RAG retrieval, real-time emergency broadcasts, edge vision models, and performant web architecture.
           </p>
         </div>

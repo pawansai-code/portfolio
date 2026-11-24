@@ -40,22 +40,22 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-slate-900/40 border-t border-slate-200/60 dark:border-slate-800/60">
+    <section id="contact" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-[#090d16] border-t border-slate-200/60 dark:border-slate-800/80">
       
       {/* Background glow */}
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-600/5 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-mono font-semibold tracking-wider uppercase mb-3 border border-blue-500/20">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Get in Touch
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Let's Build Something <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">Extraordinary</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
+            Let's Build Something <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Extraordinary</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-base sm:text-lg text-slate-300">
             Have a project in mind, looking for a full-stack engineer, or exploring collaboration in Generative AI? Let's connect.
           </p>
         </div>
@@ -77,12 +77,12 @@ export const Contact: React.FC = () => {
                 {/* Email card */}
                 <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
                       <span className="block text-xs font-mono text-slate-400">Email Address</span>
-                      <a href={`mailto:${personalInfo.email}`} className="text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-500 transition-colors">
+                      <a href={`mailto:${personalInfo.email}`} className="text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-400 transition-colors">
                         {personalInfo.email}
                       </a>
                     </div>
@@ -104,12 +104,12 @@ export const Contact: React.FC = () => {
                 {/* Phone card */}
                 <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
                       <span className="block text-xs font-mono text-slate-400">Phone / WhatsApp</span>
-                      <a href={`tel:${personalInfo.phone}`} className="text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-500 transition-colors">
+                      <a href={`tel:${personalInfo.phone}`} className="text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-400 transition-colors">
                         {personalInfo.phone}
                       </a>
                     </div>
@@ -130,7 +130,7 @@ export const Contact: React.FC = () => {
 
                 {/* Location card */}
                 <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>

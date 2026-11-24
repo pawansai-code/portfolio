@@ -71,27 +71,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             {/* Logo */}
             <a
               href="#hero"
-              className="group flex items-center gap-3 cursor-pointer select-none"
+              className="cursor-pointer select-none group"
             >
-              <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-md shadow-blue-500/20">
-                <div className="w-full h-full rounded-[10px] bg-slate-900 flex items-center justify-center">
-                  <span className="font-mono font-bold text-lg bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                    PS
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-col">
-                <span className="font-bold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
-                  Pawan Sai G
-                  <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                    v2.0
-                  </span>
-                </span>
-                <span className="hidden sm:block text-xs text-slate-500 dark:text-slate-400 font-mono">
-                  Full-Stack & AI
-                </span>
-              </div>
+              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+                PAWAN SAI G
+              </span>
             </a>
 
             {/* Desktop Navigation Links */}
@@ -178,7 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[65px] z-40 lg:hidden px-4 pb-6 pt-2 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 shadow-2xl"
+            className="fixed inset-x-0 top-[65px] z-40 lg:hidden px-4 pb-6 pt-2 bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 shadow-2xl"
           >
             <div className="flex flex-col gap-1.5 py-2">
               {navLinks.map((link) => {

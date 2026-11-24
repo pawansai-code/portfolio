@@ -61,22 +61,22 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
   }, [activeCategory, searchQuery]);
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
+    <section id="skills" className="py-24 relative overflow-hidden bg-[#090d16] border-y border-slate-800/80">
       
       {/* Background Radial Glow */}
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-blue-500/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-blue-500/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-mono font-semibold tracking-wider uppercase mb-3 border border-cyan-500/20">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Technical Arsenal
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Skills, Tools & <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">Core Frameworks</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
+            Skills, Tools & <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Core Frameworks</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-base sm:text-lg text-slate-300">
             A comprehensive stack honed through enterprise internships, national hackathon challenges, and production software delivery.
           </p>
         </div>

@@ -107,21 +107,21 @@ export const EduverseSpotlight: React.FC = () => {
   ];
 
   return (
-    <section id="eduverse" className="py-24 relative overflow-hidden bg-gradient-to-b from-slate-900 via-[#0d1424] to-slate-950 text-white border-y border-slate-800">
+    <section id="eduverse" className="py-24 relative overflow-hidden bg-[#090d16] text-white border-y border-slate-800/80">
       
       {/* Decorative ambient lights */}
-      <div className="absolute top-0 right-1/3 w-96 h-96 bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-1/3 w-96 h-96 bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-600/10 blur-[130px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono font-semibold tracking-wider uppercase mb-3 border border-cyan-500/20">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             System Design & PRD Showcase
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
-            Eduverse: <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">Centralized Academic Hub</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
+            Eduverse: <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Centralized Academic Hub</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-300">
             A complete product blueprint engineered to unify AI tutoring, cognitive gamification, and student utilities into an engagement flywheel.

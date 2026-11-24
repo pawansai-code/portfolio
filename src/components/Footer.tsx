@@ -8,16 +8,15 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="py-12 bg-white dark:bg-[#060911] border-t border-slate-200 dark:border-slate-800/80 transition-colors">
+    <footer className="py-12 bg-white dark:bg-[#090d16] border-t border-slate-200 dark:border-slate-800/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-slate-800">
           
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <span className="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="font-mono text-blue-500">&lt;/&gt;</span>
-              {personalInfo.name}
+            <span className="font-extrabold text-lg text-slate-900 dark:text-[#b8d9ff] tracking-tight">
+              PAWAN SAI G
             </span>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Building intelligent systems with clean code and artistic precision.
@@ -30,7 +29,7 @@ export const Footer: React.FC = () => {
               href={personalInfo.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-slate-900 dark:hover:bg-slate-700 transition-all"
+              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 transition-all"
               aria-label="GitHub"
             >
               <Github className="w-4 h-4" />
@@ -40,7 +39,7 @@ export const Footer: React.FC = () => {
               href={personalInfo.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-blue-600 transition-all"
+              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 transition-all"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-4 h-4" />
@@ -50,7 +49,7 @@ export const Footer: React.FC = () => {
               href={personalInfo.socials.artGallery}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-purple-600 transition-all"
+              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 transition-all"
               aria-label="Art Gallery"
             >
               <Palette className="w-4 h-4" />
@@ -58,7 +57,7 @@ export const Footer: React.FC = () => {
 
             <a
               href={`mailto:${personalInfo.email}`}
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-emerald-600 transition-all"
+              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 transition-all"
               aria-label="Email"
             >
               <Mail className="w-4 h-4" />

@@ -8,19 +8,19 @@ export const Highlights: React.FC = () => {
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   return (
-    <section id="certifications" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
+    <section id="certifications" className="py-24 relative overflow-hidden bg-[#090d16] border-y border-slate-800/80">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold tracking-wider uppercase mb-3 border border-emerald-500/20">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             Verified Credentials
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-            Professional <span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">Certifications</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#b8d9ff] tracking-tight mb-4">
+            Professional <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Certifications</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-base sm:text-lg text-slate-300">
             Rigorous international and national university accreditations in full-stack architecture, Python, and data systems.
           </p>
         </div>
@@ -34,10 +34,10 @@ export const Highlights: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 transition-all duration-300 shadow-sm hover:shadow-lg flex flex-col justify-between"
+              className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-blue-500/10 flex flex-col justify-between"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 border border-blue-500/20">
                   <Award className="w-6 h-6" />
                 </div>
 
@@ -58,14 +58,14 @@ export const Highlights: React.FC = () => {
                 {cert.image ? (
                   <button
                     onClick={() => setLightboxImg(cert.image!)}
-                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors border border-emerald-500/20"
+                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold bg-blue-600/15 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors border border-blue-500/30 shadow-sm"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>View Credential PDF</span>
                   </button>
                 ) : (
                   <div className="flex items-center gap-1 text-[11px] font-mono text-slate-400">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
                     <span>Academic Verified</span>
                   </div>
                 )}
