@@ -6,7 +6,6 @@ import {
   Cpu, Layers, Code2
 } from 'lucide-react';
 import { experiences } from '../data/portfolioData';
-import { ThreeExperienceFlow } from './ThreeExperienceFlow';
 
 // Interactive 3D Tilt Card Component for Experience Milestone
 const InteractiveExperienceCard: React.FC<{
@@ -200,9 +199,6 @@ export const Experience: React.FC = () => {
       id="experience" 
       className="py-24 relative overflow-hidden bg-slate-50/70 dark:bg-[#070b14] transition-colors duration-300"
     >
-      {/* Three.js Interactive 3D Fluid Quantum Wave Mesh */}
-      <ThreeExperienceFlow />
-
       {/* Dynamic atmospheric flow glows */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-600/15 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/15 blur-[150px] rounded-full pointer-events-none" />
@@ -213,7 +209,7 @@ export const Experience: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 font-mono text-xs font-bold tracking-wider uppercase border border-blue-500/20 mb-4 shadow-sm">
             <Radio className="w-3.5 h-3.5 animate-pulse text-cyan-500" />
-            <span>Interactive 3D Engineering Flow</span>
+            <span>Career & Engineering Milestones</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
