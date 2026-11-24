@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Brain, Code2, Database, Layout, Sparkles, 
   ArrowUpRight, Search, Terminal, Server, Layers,
-  CheckCircle2, Compass, Cpu, Palette, Flame
+  Cpu, Palette, ArrowRight
 } from 'lucide-react';
 import { 
   FaPython, FaJava, FaReact, FaNodeJs, FaDatabase, 
@@ -14,6 +14,7 @@ import {
   SiMongodb, SiPostgresql, SiPandas, SiNumpy, SiScikitlearn, 
   SiC, SiPytorch, SiExpo, SiRedux, SiFramer, SiPostman
 } from 'react-icons/si';
+import { ThreeSkillCanvas } from './ThreeSkillCanvas';
 
 interface SkillItem {
   id: string;
@@ -45,13 +46,12 @@ interface SkillsProps {
 export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
 
   const categories: CategoryGroup[] = [
     {
       id: 'ai-ml',
       title: 'AI & Generative Tech',
-      tagline: 'Production RAG, local LLM pipelines & vector search',
+      tagline: 'Production RAG pipelines, local offline LLMs, vector search & computer vision.',
       icon: <Brain className="w-5 h-5" />,
       accentColor: '#8b5cf6',
       badge: 'High Impact'
@@ -59,7 +59,7 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
     {
       id: 'frontend',
       title: 'Frontend & Mobile',
-      tagline: 'Modern reactive SPAs, type systems & mobile apps',
+      tagline: 'Modern reactive SPAs, strict type systems, responsive design & mobile apps.',
       icon: <Code2 className="w-5 h-5" />,
       accentColor: '#06b6d4',
       badge: 'React 19 Core'
@@ -67,7 +67,7 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
     {
       id: 'backend',
       title: 'Backend & APIs',
-      tagline: 'Scalable microservices, REST APIs & server runtimes',
+      tagline: 'Scalable microservices, REST APIs, authentication gates & server runtimes.',
       icon: <Server className="w-5 h-5" />,
       accentColor: '#10b981',
       badge: 'Microservices'
@@ -75,7 +75,7 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
     {
       id: 'databases',
       title: 'Databases & Vectors',
-      tagline: 'Relational schemas, NoSQL stores & embedding indices',
+      tagline: 'Relational schemas, NoSQL document stores & embedding vector indices.',
       icon: <Database className="w-5 h-5" />,
       accentColor: '#3b82f6',
       badge: 'Dense + Sparse'
@@ -83,7 +83,7 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
     {
       id: 'languages',
       title: 'Core Languages',
-      tagline: 'Object-oriented programming, data structures & types',
+      tagline: 'Object-oriented programming, algorithmic efficiency & memory structures.',
       icon: <Terminal className="w-5 h-5" />,
       accentColor: '#f59e0b',
       badge: 'Foundations'
@@ -91,7 +91,7 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
     {
       id: 'tools-design',
       title: 'UI/UX & DevOps',
-      tagline: 'Component design systems, wireframes & CI/CD workflows',
+      tagline: 'Design systems, wireframes, version control workflows & testing suites.',
       icon: <Palette className="w-5 h-5" />,
       accentColor: '#ec4899',
       badge: 'Design Rigor'
@@ -510,7 +510,9 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
     return map;
   }, [allSkills, categories]);
 
-  const activeSpotlight = selectedSkill || allSkills[0];
+  const currentCategoryObj = categories.find(c => c.id === activeCategory);
+  const activeColor = currentCategoryObj ? currentCategoryObj.accentColor : '#3b82f6';
+  const activeTitle = currentCategoryObj ? currentCategoryObj.title : 'All Tech Domains';
 
   const handleSelectSkillAction = (skillName: string) => {
     if (onSelectSkill) {
@@ -535,138 +537,150 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
-            Interactive Tech Matrix
+            Interactive 3D Tech Matrix
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
             Categorized Stack & <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Core Competencies</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
-            Explore my technical ecosystem by specialized domain. Click any technology chip to inspect its practical production application and view related projects.
+            Explore my full technical ecosystem categorized by specialized domain with real-time 3D orbital visualization and fluid interactions.
           </p>
         </div>
 
-        {/* Live Interactive Skill Spotlight Banner */}
-        <motion.div 
-          layout
-          className="mb-12 rounded-3xl p-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 shadow-xl shadow-blue-500/10"
-        >
-          <div className="rounded-[22px] bg-white dark:bg-slate-900/95 p-6 sm:p-8 backdrop-blur-xl">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        {/* 3D Three.js Interactive Tech Hub & Domain Insight */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-14">
+          
+          {/* Left Column: Interactive 3D Three.js Tech Canvas */}
+          <div className="lg:col-span-5">
+            <ThreeSkillCanvas 
+              activeColor={activeColor}
+              categoryTitle={activeTitle}
+            />
+          </div>
+
+          {/* Right Column: Dynamic Category Overview & Search */}
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div className="p-8 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xl shadow-lg">
               
-              <div className="flex items-start sm:items-center gap-5">
-                <div 
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-md border"
-                  style={{ 
-                    backgroundColor: `${activeSpotlight.color}15`,
-                    borderColor: `${activeSpotlight.color}40`
-                  }}
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <span 
+                  className="text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border text-white shadow-sm"
+                  style={{ backgroundColor: activeColor, borderColor: `${activeColor}40` }}
                 >
-                  <div className="scale-125">
-                    {activeSpotlight.icon}
-                  </div>
-                </div>
+                  {activeCategory === 'all' ? 'Complete Engineering Stack' : activeTitle}
+                </span>
 
-                <div>
-                  <div className="flex flex-wrap items-center gap-2.5 mb-1.5">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                      {activeSpotlight.category}
-                    </span>
-                    <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60">
-                      Tier: {activeSpotlight.level}
-                    </span>
-                    <span className="text-xs font-mono font-bold text-blue-600 dark:text-blue-400">
-                      {activeSpotlight.proficiency}% Proficiency
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-                    {activeSpotlight.name}
-                  </h3>
-
-                  <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                    <strong className="text-slate-900 dark:text-white font-semibold">Production Context: </strong>
-                    {activeSpotlight.practicalUse}
-                  </p>
-                </div>
+                <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
+                  {filteredSkills.length} Technologies Indexed
+                </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-100 dark:border-slate-800">
-                <button
-                  onClick={() => handleSelectSkillAction(activeSpotlight.name)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/25 transition-all hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  <span>View Related Projects</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
+                {activeCategory === 'all' 
+                  ? 'Full-Stack & Generative AI Architecture' 
+                  : currentCategoryObj?.title}
+              </h3>
+
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                {activeCategory === 'all'
+                  ? 'A dual-stack skill set integrating deep machine learning pipelines and local offline LLMs with production React 19 frontends, Redux Toolkit, and microservice architectures.'
+                  : currentCategoryObj?.tagline}
+              </p>
+
+              {/* Fast Stats Row */}
+              <div className="grid grid-cols-3 gap-3 pt-6 border-t border-slate-100 dark:border-slate-800/80 text-center">
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                  <span className="block text-xl font-black text-slate-900 dark:text-white font-mono">
+                    32+
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    Tech Nodes
+                  </span>
+                </div>
+
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                  <span className="block text-xl font-black text-blue-600 dark:text-blue-400 font-mono">
+                    6
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    Domains
+                  </span>
+                </div>
+
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                  <span className="block text-xl font-black text-emerald-600 dark:text-emerald-400 font-mono">
+                    100%
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    Production Rigor
+                  </span>
+                </div>
               </div>
 
             </div>
-          </div>
-        </motion.div>
 
-        {/* Interactive Domain Filter Navigation Bar */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 mb-10">
-          
-          {/* Domain Pills */}
-          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm w-full lg:w-auto">
-            <button
-              onClick={() => setActiveCategory('all')}
-              className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
-                activeCategory === 'all'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>All Tech Domains</span>
-              <span className="text-[11px] font-mono px-1.5 py-0.2 rounded-full bg-white/20 dark:bg-white/10">
-                {allSkills.length}
-              </span>
-            </button>
-
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat.id;
-              const count = categorizedSkills.get(cat.id)?.length || 0;
-              return (
+            {/* Quick Search Bar */}
+            <div className="relative w-full">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search any skill or tool (e.g., React, Python, RAG, Figma)..."
+                className="w-full pl-11 pr-20 py-3.5 text-sm rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all shadow-md"
+              />
+              {searchQuery && (
                 <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`relative px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
-                    isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
-                  }`}
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-400 hover:text-slate-700 dark:hover:text-white"
                 >
-                  <span>{cat.icon}</span>
-                  <span>{cat.title}</span>
-                  <span className="text-[11px] font-mono px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                    {count}
-                  </span>
+                  Clear
                 </button>
-              );
-            })}
+              )}
+            </div>
+
           </div>
 
-          {/* Quick Search Input */}
-          <div className="relative w-full lg:w-72">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Filter by name or tag (e.g., RAG, React)..."
-              className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all shadow-sm"
-            />
-            {searchQuery && (
+        </div>
+
+        {/* Interactive Domain Filter Navigation Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm max-w-4xl mx-auto">
+          <button
+            onClick={() => setActiveCategory('all')}
+            className={`relative px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+              activeCategory === 'all'
+                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>All Domains</span>
+            <span className="text-[11px] font-mono px-1.5 py-0.2 rounded-full bg-white/20 dark:bg-white/10">
+              {allSkills.length}
+            </span>
+          </button>
+
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.id;
+            const count = categorizedSkills.get(cat.id)?.length || 0;
+            return (
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`relative px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+                  isActive
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+                }`}
               >
-                Clear
+                <span>{cat.icon}</span>
+                <span>{cat.title}</span>
+                <span className="text-[11px] font-mono px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  {count}
+                </span>
               </button>
-            )}
-          </div>
-
+            );
+          })}
         </div>
 
         {/* Categorized Bento Cards Matrix */}
@@ -714,25 +728,17 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
 
                     {/* Interactive Chips within Category */}
                     <div className="flex flex-wrap gap-2">
-                      {skillsInCat.map((skill) => {
-                        const isSelected = activeSpotlight.name === skill.name;
-                        return (
-                          <button
-                            key={skill.id}
-                            onClick={() => setSelectedSkill(skill)}
-                            className={`group/chip inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border cursor-pointer ${
-                              isSelected
-                                ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/30 scale-105'
-                                : 'bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 border-slate-200/80 dark:border-slate-700/60 hover:border-blue-500/60 hover:bg-slate-100 dark:hover:bg-slate-800'
-                            }`}
-                          >
-                            <span className="shrink-0 scale-110">
-                              {skill.icon}
-                            </span>
-                            <span>{skill.name}</span>
-                          </button>
-                        );
-                      })}
+                      {skillsInCat.map((skill) => (
+                        <div
+                          key={skill.id}
+                          className="group/chip inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/60 hover:border-blue-500/60 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 shadow-sm hover:scale-105"
+                        >
+                          <span className="shrink-0 scale-110">
+                            {skill.icon}
+                          </span>
+                          <span>{skill.name}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -742,11 +748,11 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
                       onClick={() => setActiveCategory(cat.id)}
                       className="text-blue-600 dark:text-blue-400 flex items-center gap-1 hover:underline"
                     >
-                      <span>Focus on {cat.title}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
+                      <span>Explore {cat.title}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                     <span className="text-[11px] font-mono text-slate-400">
-                      Click to inspect
+                      {skillsInCat.length} Skills
                     </span>
                   </div>
                 </motion.div>
@@ -754,7 +760,7 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
             })}
           </div>
         ) : (
-          /* Filtered / Single Category Interactive View */
+          /* Filtered / Single Category View with Enhanced UI Cards */
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
@@ -772,27 +778,21 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               <AnimatePresence>
-                {filteredSkills.map((skill) => {
-                  const isSelected = activeSpotlight.name === skill.name;
-                  return (
-                    <motion.div
-                      key={skill.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      onClick={() => setSelectedSkill(skill)}
-                      className={`group relative p-5 rounded-2xl bg-white dark:bg-slate-900/90 border transition-all duration-300 cursor-pointer shadow-sm hover:shadow-lg ${
-                        isSelected
-                          ? 'border-blue-500 dark:border-blue-500 ring-2 ring-blue-500/30 shadow-blue-500/10'
-                          : 'border-slate-200/80 dark:border-slate-800/80 hover:border-blue-500/50'
-                      }`}
-                    >
+                {filteredSkills.map((skill) => (
+                  <motion.div
+                    key={skill.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="group relative p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 hover:border-blue-500/50 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between"
+                  >
+                    <div>
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
                           <div 
-                            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border"
+                            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border shadow-sm"
                             style={{ 
                               backgroundColor: `${skill.color}15`,
                               borderColor: `${skill.color}30`
@@ -815,28 +815,30 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
                         </span>
                       </div>
 
-                      <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-2">
+                      <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
                         {skill.description}
                       </p>
 
-                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-semibold">
-                        <span className="text-slate-500 font-mono">
-                          {skill.level}
-                        </span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSelectSkillAction(skill.name);
-                          }}
-                          className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-0.5"
-                        >
-                          <span>Projects</span>
-                          <ArrowUpRight className="w-3 h-3" />
-                        </button>
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 mb-3 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                        <span className="font-semibold text-slate-800 dark:text-white">Use: </span>
+                        {skill.practicalUse}
                       </div>
-                    </motion.div>
-                  );
-                })}
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-semibold">
+                      <span className="text-slate-500 font-mono">
+                        Tier: {skill.level}
+                      </span>
+                      <button
+                        onClick={() => handleSelectSkillAction(skill.name)}
+                        className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-0.5"
+                      >
+                        <span>Related Projects</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
               </AnimatePresence>
             </div>
           </div>
