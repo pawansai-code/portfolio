@@ -7,6 +7,10 @@ export const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleReturnToOrigin = () => {
+    window.dispatchEvent(new CustomEvent('train-return-origin'));
+  };
+
   return (
     <footer className="py-12 bg-slate-100 dark:bg-[#090d16] border-t border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,6 +66,14 @@ export const Footer: React.FC = () => {
             >
               <Mail className="w-4 h-4" />
             </a>
+
+            <button
+              onClick={handleReturnToOrigin}
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all"
+              title="Reverse train and return to Origin Terminal"
+            >
+              <span>🚂 Return to Origin</span>
+            </button>
 
             <button
               onClick={scrollToTop}
