@@ -282,7 +282,8 @@ export const experiences: Experience[] = [
       "Engineered core product user interfaces with React and TypeScript, transitioning complex business logic into clean, reusable modular components.",
       "Integrated React Redux Toolkit for centralized state management, eliminating prop drilling and reducing redundant API requests across major user flows.",
       "Enforced industry-standard software engineering best practices: strict folder conventions, readable naming patterns, and comprehensive Git workflows.",
-      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases."
+      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases.",
+      "Earned a ₹5,000 stipend in recognition of technical contributions, milestone deliveries, and frontend engineering performance."
     ],
     skills: ["React.js", "TypeScript", "Redux Toolkit", "JavaScript", "REST APIs", "Git", "Agile Sprints"]
   }
