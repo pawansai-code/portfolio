@@ -5,7 +5,6 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
-import { EduverseSpotlight } from './components/EduverseSpotlight';
 import { Experience } from './components/Experience';
 import { Hackathons } from './components/Hackathons';
 import { Workshops } from './components/Workshops';
@@ -41,7 +40,6 @@ export const App: React.FC = () => {
           <About />
           <Skills onSelectSkill={handleSelectSkill} />
           <Projects initialFilter={selectedSkillFilter} />
-          <EduverseSpotlight />
           <Experience />
           <Hackathons />
           <Workshops />

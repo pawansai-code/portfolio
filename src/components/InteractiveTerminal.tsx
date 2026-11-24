@@ -55,7 +55,6 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
             <p><span className="text-yellow-400 font-bold">whoami</span> - Short bio and overview</p>
             <p><span className="text-yellow-400 font-bold">skills</span> - List core technical proficiencies</p>
             <p><span className="text-yellow-400 font-bold">projects</span> - View flagship software projects</p>
-            <p><span className="text-yellow-400 font-bold">eduverse</span> - Details on the Eduverse PRD architecture</p>
             <p><span className="text-yellow-400 font-bold">experience</span> - Internship and industry history</p>
             <p><span className="text-yellow-400 font-bold">contact</span> - Get direct email and phone</p>
             <p><span className="text-yellow-400 font-bold">clear</span> - Clear the terminal output</p>
@@ -96,18 +95,6 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
                 <div className="text-slate-500">Tech: {p.tech.join(', ')}</div>
               </div>
             ))}
-          </div>
-        );
-        break;
-
-      case 'eduverse':
-        output = (
-          <div className="text-xs font-mono text-slate-300 space-y-1">
-            <p className="text-cyan-300 font-bold">Eduverse Architecture Specs:</p>
-            <p>1. Meta LLaMA 3.3-70B via Groq Express proxy (sub-200ms TTFT)</p>
-            <p>2. Chess.js + react-chessboard cognitive training & XP progression</p>
-            <p>3. Manifest-driven modular Tools Hub registry</p>
-            <p>4. Encrypted private Journal Hub with streak gamification</p>
           </div>
         );
         break;
