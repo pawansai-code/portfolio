@@ -56,6 +56,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
             <p><span className="text-yellow-400 font-bold">skills</span> - List core technical proficiencies</p>
             <p><span className="text-yellow-400 font-bold">projects</span> - View flagship software projects</p>
             <p><span className="text-yellow-400 font-bold">experience</span> - Internship and industry history</p>
+            <p><span className="text-yellow-400 font-bold">resume</span> - Open verified PDF resume</p>
             <p><span className="text-yellow-400 font-bold">contact</span> - Get direct email and phone</p>
             <p><span className="text-yellow-400 font-bold">clear</span> - Clear the terminal output</p>
             <p><span className="text-yellow-400 font-bold">exit</span> - Close the terminal window</p>
@@ -103,15 +104,24 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ isOpen
         output = (
           <div className="text-xs font-mono text-slate-300 space-y-2">
             <div>
-              <p className="text-white font-bold">OneIntegral Technologies (Data Twin)</p>
-              <p className="text-cyan-400">Trainee on Generative AI (Intern) | June 2026</p>
-              <p className="text-slate-400">Autonomous Financial Reconciliation, RAG, Pinecone, Ollama</p>
+              <p className="text-white font-bold">OneIntegral Technologies Pvt Ltd</p>
+              <p className="text-cyan-400">Trainee – Generative AI (Intern) | Jun 2026 (Chennai, On-site)</p>
+              <p className="text-slate-400">RAG Workflows, LangChain, PostgreSQL, Vector Databases, Ollama</p>
             </div>
             <div>
-              <p className="text-white font-bold">SocialTek AI & ML Business Solutions</p>
-              <p className="text-cyan-400">Full-Stack Developer Intern | 5 Months</p>
-              <p className="text-slate-400">Production React, Redux Toolkit, client iterations</p>
+              <p className="text-white font-bold">SocialTek AI ML Business Solutions Pvt Ltd</p>
+              <p className="text-cyan-400">Full Stack Web Development | Oct 2025 – March 2026 (Remote, ₹5,000 Stipend)</p>
+              <p className="text-slate-400">Production React.js, Redux Toolkit, clean code architecture, GitHub</p>
             </div>
+          </div>
+        );
+        break;
+
+      case 'resume':
+        window.open(personalInfo.resume, '_blank');
+        output = (
+          <div className="text-xs font-mono text-emerald-400">
+            <p>✓ Opening {personalInfo.name}'s latest verified PDF resume in a new tab...</p>
           </div>
         );
         break;

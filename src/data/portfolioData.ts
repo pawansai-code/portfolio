@@ -49,11 +49,14 @@ export const personalInfo = {
   education: {
     college: "Prathyusha Engineering College",
     degree: "B.E. Computer Science and Engineering",
-    passYear: "2023 - 2027",
+    cgpa: "8.165",
+    location: "Tamil Nadu, India",
+    passYear: "2023 – 2027",
   },
   socials: {
     github: "https://github.com/pawansai-code",
     linkedin: "https://linkedin.com/in/pawansai-g/",
+    codechef: "https://www.codechef.com",
     artGallery: "https://art-gallery-blond-five.vercel.app/",
     emailMailto: "mailto:pawangopi2006@gmail.com",
   },
@@ -63,10 +66,10 @@ export const personalInfo = {
     avatar3d: avatar3d,
   },
   stats: [
-    { label: "Projects Completed", value: "10+" },
-    { label: "Hackathon Honors", value: "3+" },
+    { label: "Hackathons Won", value: "3" },
+    { label: "CodeChef Solved", value: "200+" },
     { label: "Industry Internships", value: "2" },
-    { label: "Code Commits", value: "500+" },
+    { label: "Students Mentored", value: "50+" },
   ]
 };
 
@@ -260,38 +263,39 @@ export const skillCategories: SkillCategory[] = [
 export const experiences: Experience[] = [
   {
     id: "oneintegral",
-    role: "Trainee on Generative AI (Intern)",
-    company: "OneIntegral Technologies Pvt Ltd (Data Twin)",
+    role: "Trainee – Generative AI",
+    company: "OneIntegral Technologies Pvt Ltd",
     location: "Chennai, India (On-site)",
-    duration: "1 Month (Intensive)",
-    period: "June 2026",
+    duration: "Jun 2026",
+    period: "Jun 2026",
     type: "Internship",
     badge: "Enterprise AI & RAG",
     description: [
-      "Engineered an enterprise Autonomous Data Processing & Reconciliation pipeline adopting AI to streamline financial reconciliation and dispute resolution.",
-      "Designed core RAG system architecture, evaluating embedding models and optimizing chunking parameters for dense vector retrieval in Pinecone.",
-      "Conducted extensive hands-on experiments running offline quantized LLMs via Ollama, enabling air-gapped, zero-cloud-cost enterprise inference.",
-      "Collaborated on data preprocessing workflows to ingest structured financial logs and unstructured invoices into unified vector representations."
+      "Developed and optimized Retrieval-Augmented Generation (RAG) workflows using Python and LangChain.",
+      "Implemented hybrid retrieval, query routing, reranking, and Agentic AI techniques for intelligent information retrieval.",
+      "Contributed to a confidential enterprise AI project, following production-grade development practices.",
+      "Worked with PostgreSQL, Vector Databases, Ollama, and modern LLM technologies."
     ],
-    skills: ["Generative AI", "RAG", "Pinecone", "LangChain", "Ollama", "Python"]
+    skills: ["Generative AI", "RAG", "LangChain", "Python", "Vector Databases", "Ollama", "PostgreSQL"]
   },
   {
     id: "socialtek",
-    role: "Full-Stack Developer Intern",
-    company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
-    location: "Chennai, India",
-    duration: "5 Months (10/2025 – 03/2026)",
+    role: "Full Stack Web Development",
+    company: "SocialTek AI ML Business solutions pvt ltd",
+    location: "Hyderabad, India (remote)",
+    duration: "Oct 2025 – March 2026",
     period: "Production Web",
     type: "Internship",
-    badge: "Production Web Engineering",
+    badge: "₹5,000 Stipend",
     description: [
-      "Engineered core product user interfaces with React and TypeScript, transitioning complex business logic into clean, reusable modular components.",
-      "Integrated React Redux Toolkit for centralized state management, eliminating prop drilling and reducing redundant API requests across major user flows.",
-      "Enforced industry-standard software engineering best practices: strict folder conventions, readable naming patterns, and comprehensive Git workflows.",
-      "Directly participated in client demo calls and agile sprint retrospectives, rapidly incorporating user feedback into iterative software releases.",
-      "Earned a ₹5,000 stipend in recognition of technical contributions, milestone deliveries, and frontend engineering performance."
+      "Developed and contributed to a real-world web application using React.js.",
+      "Implemented state management using Redux Toolkit to improve code structure and scalability.",
+      "Wrote clean, maintainable, and well-structured code following best practices.",
+      "Gained exposure to client interactions and iterative development processes.",
+      "Used GitHub for version control and code collaboration.",
+      "Earned ₹5,000 stipend in recognition of milestone deliveries and technical contributions."
     ],
-    skills: ["React.js", "TypeScript", "Redux Toolkit", "JavaScript", "REST APIs", "Git", "Agile Sprints"]
+    skills: ["React.js", "Redux Toolkit", "JavaScript", "GitHub", "Client Demos", "Agile Sprints"]
   }
 ];
 
@@ -413,8 +417,8 @@ export const certifications: Certification[] = [
   },
   {
     id: "js-intro",
-    title: "Introduction to JavaScript",
-    issuer: "Professional Academy",
+    title: "Intro to Javascript",
+    issuer: "Great Learning",
     issueDate: "Certified",
     badgeText: "Modern ES6+ Fundamentals"
   }

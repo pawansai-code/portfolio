@@ -184,28 +184,33 @@ export const About: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Degree */}
+                  {/* Degree & CGPA */}
                   <div className="p-5 rounded-2xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-center gap-4">
                     <div className="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
                       <Award className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400">Degree</span>
+                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400">Degree & Academic Score</span>
                       <span className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                         {personalInfo.education.degree}
                       </span>
+                      {personalInfo.education.cgpa && (
+                        <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          CGPA: {personalInfo.education.cgpa}
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  {/* Pass Year */}
+                  {/* Pass Year & Location */}
                   <div className="p-5 rounded-2xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-center gap-4">
                     <div className="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
                       <Calendar className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400">Pass Year</span>
+                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400">Period & Location</span>
                       <span className="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-mono">
-                        {personalInfo.education.passYear}
+                        {personalInfo.education.passYear} {personalInfo.education.location && `• ${personalInfo.education.location}`}
                       </span>
                     </div>
                   </div>
