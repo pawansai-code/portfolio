@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  GraduationCap, Rocket, ArrowRight, Building2, Calendar, Award
+  GraduationCap, Rocket, Building2, Calendar, Award
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
@@ -100,7 +100,7 @@ export const About: React.FC = () => {
                   Who I Am
                 </h3>
                 
-                <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base mb-6">
+                <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
                   {personalInfo.whoAmIParagraphs.map((paragraph, idx) => (
                     <p 
                       key={idx}
@@ -109,22 +109,6 @@ export const About: React.FC = () => {
                       {paragraph}
                     </p>
                   ))}
-                </div>
-
-                <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                  <div>
-                    <span className="block text-xs font-mono text-slate-500 uppercase">Current Focus</span>
-                    <span className="font-semibold text-sm text-slate-800 dark:text-slate-200">
-                      Full Stack (MERN) & Machine Learning
-                    </span>
-                  </div>
-                  <a
-                    href="#projects"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
-                  >
-                    <span>View Work</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
                 </div>
               </div>
 
