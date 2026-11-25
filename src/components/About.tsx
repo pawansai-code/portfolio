@@ -10,28 +10,28 @@ export const About: React.FC = () => {
 
   const timelineMilestones = [
     {
-      year: "The Spark",
-      title: "Igniting the Dream in 10th Grade",
-      desc: "Discovered an insatiable curiosity for how software shapes human lives. Committed early to pursuing Computer Science Engineering.",
+      period: "10th Grade",
       tag: "Foundations",
+      title: "The IT Dream & Early Foundations",
+      desc: "Sparked a clear direction toward computer science in 10th grade, building early programming fundamentals and committing to a B.E. in Computer Science Engineering.",
     },
     {
-      year: "College Entry",
-      title: "Diving into Python & Machine Learning",
-      desc: "Explored computational algorithms, mathematics, and data science. Built early ML models and completed a 21-day internship at Virtual Tech Services applying algorithms to weather classification.",
-      tag: "Machine Learning",
+      period: "College Entry",
+      tag: "ML & Python",
+      title: "Python & Weather Classification ML",
+      desc: "Mastered Python and machine learning algorithms. Completed a 21-day internship at Virtual Tech Services, developing a practical Weather Classification model.",
     },
     {
-      year: "Industry Internships",
-      title: "Enterprise Generative AI & Full-Stack",
-      desc: "Engineered RAG pipelines and offline LLM implementations at OneIntegral Technologies, followed by high-scale production React/TypeScript development at SocialTek.",
-      tag: "Production Tech",
+      period: "Industry Internships",
+      tag: "Enterprise AI & Web",
+      title: "Generative AI & Production Web Engineering",
+      desc: "Built enterprise RAG workflows with LangChain, Pinecone, and Ollama at OneIntegral; engineered production React & Redux Toolkit web apps at SocialTek (earning a ₹5,000 stipend).",
     },
     {
-      year: "Present & Ahead",
-      title: "Architecting Next-Gen Systems",
-      desc: "Synthesizing deep AI/ML capabilities with fluid modern frontends, hackathon victories, and creative design sensibility.",
-      tag: "Full-Stack AI",
+      period: "Present & Ahead",
+      tag: "Full-Stack & Drone R&D",
+      title: "MERN Stack Expansion & Autonomous Drone Systems",
+      desc: "Scaling into full-stack MERN engineering while keeping strong ML roots. Developing the NIDAR autonomous drone disaster response system alongside 3 hackathon wins.",
     },
   ];
 
@@ -94,13 +94,17 @@ export const About: React.FC = () => {
               className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
             >
               {/* Narrative Bio */}
-              <div className="lg:col-span-5 p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 backdrop-blur-xl shadow-xl">
+              <motion.div 
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2 }}
+                className="lg:col-span-5 p-7 sm:p-8 rounded-3xl bg-slate-50/90 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 backdrop-blur-xl shadow-lg transition-all duration-300"
+              >
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
                   Who I Am
                 </h3>
                 
-                <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+                <div className="space-y-3.5 text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
                   {personalInfo.whoAmIParagraphs.map((paragraph, idx) => (
                     <p 
                       key={idx}
@@ -110,38 +114,52 @@ export const About: React.FC = () => {
                     </p>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Timeline Cards */}
               <div className="lg:col-span-7 relative">
-                <div className="absolute left-6 sm:left-8 top-3 bottom-3 w-0.5 bg-gradient-to-b from-blue-500 via-indigo-500 to-cyan-500 opacity-30" />
+                {/* Subtle animated flow spine */}
+                <div className="absolute left-6 sm:left-8 top-4 bottom-4 w-0.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                  <motion.div
+                    animate={{ y: ['-100%', '200%'] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                    className="w-full h-24 bg-gradient-to-b from-transparent via-blue-500 dark:via-cyan-400 to-transparent opacity-70"
+                  />
+                </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {timelineMilestones.map((m, idx) => (
-                    <div
+                    <motion.div
                       key={idx}
-                      className="relative pl-14 sm:pl-16 group"
+                      initial={{ opacity: 0, y: 14 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-20px' }}
+                      transition={{ duration: 0.35, delay: idx * 0.08 }}
+                      whileHover={{ y: -2 }}
+                      className="relative pl-14 sm:pl-16 group cursor-default"
                     >
                       {/* Timeline Node */}
-                      <div className="absolute left-4 sm:left-6 top-3 -translate-x-1/2 w-4 h-4 rounded-full bg-white dark:bg-slate-950 border-2 border-blue-500 group-hover:scale-125 group-hover:border-indigo-400 transition-all shadow-md shadow-blue-500/20" />
+                      <div className="absolute left-4 sm:left-6 top-5 -translate-x-1/2 flex items-center justify-center">
+                        <div className="w-3.5 h-3.5 rounded-full bg-white dark:bg-slate-950 border-2 border-blue-500 dark:border-cyan-400 transition-transform duration-300 group-hover:scale-125 shadow-sm shadow-blue-500/20" />
+                      </div>
 
-                      <div className="p-5 sm:p-6 rounded-2xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 hover:border-blue-500/40 transition-all backdrop-blur-md shadow-sm hover:shadow-md">
+                      <div className="p-5 sm:p-6 rounded-2xl bg-slate-50/90 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-md shadow-sm hover:shadow-md">
                         <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                          <span className="text-xs font-mono font-semibold text-blue-600 dark:text-blue-400">
-                            {m.year}
+                          <span className="text-xs font-mono font-semibold text-blue-600 dark:text-cyan-400">
+                            {m.period}
                           </span>
                           <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700/60">
                             {m.tag}
                           </span>
                         </div>
-                        <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+                        <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
                           {m.title}
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                           {m.desc}
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
