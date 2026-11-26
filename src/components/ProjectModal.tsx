@@ -85,25 +85,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             )}
           </div>
 
-          {/* Metrics Row */}
-          {project.metrics && project.metrics.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-              {project.metrics.map((m, idx) => (
-                <div
-                  key={idx}
-                  className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 text-center"
-                >
-                  <span className="block text-base sm:text-lg font-mono font-bold text-blue-600 dark:text-blue-400">
-                    {m.value}
-                  </span>
-                  <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">
-                    {m.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* Video Player if present (CodeLens demo) */}
           {project.video && (
             <div className="mb-8 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-lg bg-black">
