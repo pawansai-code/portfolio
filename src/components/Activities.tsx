@@ -36,7 +36,7 @@ export const Activities: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Activity R&D Card (col-span-7) */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-8 relative z-20 pointer-events-auto">
             {activities.map((act, idx) => (
               <motion.div
                 key={act.id}
@@ -116,7 +116,7 @@ export const Activities: React.FC = () => {
           </div>
 
           {/* Right Column: 3D Hovering Drone Model (col-span-5) */}
-          <div className="lg:col-span-5 w-full">
+          <div className="lg:col-span-5 w-full relative z-10 overflow-hidden">
             <Drone3D />
           </div>
 

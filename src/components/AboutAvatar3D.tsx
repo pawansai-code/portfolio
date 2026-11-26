@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Loader2, Sparkles } from 'lucide-react';
-import avatarModelUrl from '../assets/model (1).glb';
+import avatarModelUrl from '../assets/model (2).glb';
 
 export const AboutAvatar3D: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);

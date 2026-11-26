@@ -258,10 +258,6 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
             Skills & <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Technologies</span>
           </h2>
-
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            Interactive suite of languages, frameworks, and intelligence tools I engineer high-performance systems with. Hover or tap to interact.
-          </p>
         </div>
 
         {/* Organized Thematic Clusters of Magnetic Skills */}

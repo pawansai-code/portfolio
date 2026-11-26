@@ -33,14 +33,11 @@ export const Projects: React.FC<ProjectsProps> = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
-            Engineered Solutions
+            Projects
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
-            Featured Projects & <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">AI Systems</span>
+            Things I've <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Built</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
-            Production-grade systems incorporating intelligent RAG retrieval, real-time emergency broadcasts, edge vision models, and performant web architecture.
-          </p>
         </div>
 
         {/* Flagship Highlight Spotlight: CodeLens */}
@@ -214,12 +211,6 @@ export const Projects: React.FC<ProjectsProps> = () => {
                   <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-white text-[11px] font-mono uppercase tracking-wider border border-white/10">
                     {project.category}
                   </div>
-
-                  {project.metrics && project.metrics[0] && (
-                    <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-blue-600/90 backdrop-blur-md text-white text-[11px] font-mono font-semibold">
-                      {project.metrics[0].value}
-                    </div>
-                  )}
                 </div>
 
                 {/* Card Body */}

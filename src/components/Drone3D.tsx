@@ -49,6 +49,9 @@ export const Drone3D: React.FC = () => {
     renderer.toneMappingExposure = 1.3;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.domElement.style.maxWidth = '100%';
+    renderer.domElement.style.maxHeight = '100%';
+    renderer.domElement.style.display = 'block';
     container.appendChild(renderer.domElement);
 
     // Dynamic Lighting
@@ -129,6 +132,8 @@ export const Drone3D: React.FC = () => {
     let currentBankX = 0;
     let targetPitchZ = 0;
     let currentPitchZ = 0;
+    let targetHoverYaw = 0;
+    let currentHoverYaw = 0;
 
     loader.load(
       droneModelUrl,
@@ -288,23 +293,55 @@ export const Drone3D: React.FC = () => {
       window.removeEventListener('mouseup', handleWindowDragEnd);
     };
 
-    // Cursor hover banking ONLY fires when mouse is physically inside the drone container
+    // Raycaster for detecting when cursor hovers directly within the 3D drone model
+    const raycaster = new THREE.Raycaster();
+    const mouseVector = new THREE.Vector2();
+
+    // Cursor hover rotation & banking ONLY triggers when hovering directly within the drone visual model area
     const handleContainerMouseMove = (e: MouseEvent) => {
       if (isDragging) return;
       const rect = container.getBoundingClientRect();
+
+      // Guard check: strictly ensure cursor is within container boundaries
+      if (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      ) {
+        targetBankX = 0;
+        targetPitchZ = 0;
+        targetHoverYaw = 0;
+        return;
+      }
+
       const rawX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const rawY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      // Strictly clamp to container boundaries
-      const mouseRelX = Math.max(-1, Math.min(1, rawX));
-      const mouseRelY = Math.max(-1, Math.min(1, rawY));
-      targetBankX = mouseRelX * 0.22;
-      targetPitchZ = mouseRelY * 0.16;
+
+      mouseVector.set(rawX, rawY);
+      raycaster.setFromCamera(mouseVector, camera);
+      const hits = raycaster.intersectObjects(droneGroup.children, true);
+
+      // ONLY respond when cursor is hovering directly within the 3D drone model geometry
+      if (hits.length > 0) {
+        const clampedX = Math.max(-1, Math.min(1, rawX));
+        const clampedY = Math.max(-1, Math.min(1, rawY));
+        targetBankX = clampedX * 0.22;
+        targetPitchZ = clampedY * 0.16;
+        targetHoverYaw = clampedX * 0.22; // Smooth hover rotation within drone area
+      } else {
+        // Outside the visual drone model area: completely neutral, 0 rotation, 0 tilt
+        targetBankX = 0;
+        targetPitchZ = 0;
+        targetHoverYaw = 0;
+      }
     };
 
     const handleContainerMouseLeave = () => {
-      // Return to completely neutral level flight when mouse leaves the drone viewport
+      // Immediately reset hover rotation and banking when mouse leaves drone area
       targetBankX = 0;
       targetPitchZ = 0;
+      targetHoverYaw = 0;
     };
 
     // Touch Interaction
@@ -328,6 +365,7 @@ export const Drone3D: React.FC = () => {
       isDragging = false;
       targetBankX = 0;
       targetPitchZ = 0;
+      targetHoverYaw = 0;
     };
 
     // Listeners confined strictly to the 3D container (no window-wide hover events)
@@ -364,16 +402,17 @@ export const Drone3D: React.FC = () => {
       const hoverRoll = Math.sin(time * 1.6) * 0.025;
       const hoverPitch = Math.cos(time * 1.9) * 0.02;
 
-      // Smooth damping for user drag and aerodynamic banking
+      // Smooth damping for user drag, hover yaw rotation, and aerodynamic banking
       currentRotationY += (targetRotationY - currentRotationY) * 0.06;
+      currentHoverYaw += (targetHoverYaw - currentHoverYaw) * 0.06;
       currentBankX += (targetBankX - currentBankX) * 0.06;
       currentPitchZ += (targetPitchZ - currentPitchZ) * 0.06;
 
-      // Apply flight dynamics - rotation Y ONLY changes when user explicitly drags on the model
+      // Apply flight dynamics - rotation Y ONLY responds within drone area or via direct drag
       droneGroup.position.y = hoverY;
       droneGroup.rotation.z = hoverRoll - currentBankX;
       droneGroup.rotation.x = hoverPitch + currentPitchZ;
-      droneGroup.rotation.y = currentRotationY;
+      droneGroup.rotation.y = currentRotationY + currentHoverYaw;
 
       // Spin active drone propellers at high speed
       activeRotors.forEach(({ group, dir }) => {
@@ -420,12 +459,12 @@ export const Drone3D: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[540px] sm:h-[600px] lg:h-[640px] flex items-center justify-center select-none bg-transparent">
+    <div className="relative w-full h-[540px] sm:h-[600px] lg:h-[640px] flex items-center justify-center select-none bg-transparent overflow-hidden">
       
       {/* 3D Canvas Mount Point */}
       <div 
         ref={mountRef} 
-        className="w-full h-full cursor-grab active:cursor-grabbing bg-transparent" 
+        className="w-full h-full cursor-grab active:cursor-grabbing bg-transparent overflow-hidden" 
       />
 
       {/* Loading Overlay */}
