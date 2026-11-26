@@ -345,37 +345,40 @@ export const AboutAvatar3D: React.FC = () => {
               <feGaussianBlur stdDeviation="22" />
             </filter>
 
-            {/* Vertical Gradient for Outer Beam */}
+            {/* Vertical Gradient for Outer Beam: Smooth faded start */}
             <linearGradient id="outerBeamGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
-              <stop offset="18%" stopColor="#dbeafe" stopOpacity="0.5" />
-              <stop offset="55%" stopColor="#93c5fd" stopOpacity="0.24" />
-              <stop offset="85%" stopColor="#60a5fa" stopOpacity="0.09" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+              <stop offset="8%" stopColor="#ffffff" stopOpacity="0.32" />
+              <stop offset="22%" stopColor="#dbeafe" stopOpacity="0.45" />
+              <stop offset="55%" stopColor="#93c5fd" stopOpacity="0.22" />
+              <stop offset="85%" stopColor="#60a5fa" stopOpacity="0.08" />
               <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
             </linearGradient>
 
-            {/* Vertical Gradient for Inner Beam */}
+            {/* Vertical Gradient for Inner Beam: Soft faded start */}
             <linearGradient id="innerBeamGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-              <stop offset="25%" stopColor="#e0f2fe" stopOpacity="0.7" />
-              <stop offset="65%" stopColor="#bfdbfe" stopOpacity="0.36" />
-              <stop offset="90%" stopColor="#93c5fd" stopOpacity="0.14" />
-              <stop offset="100%" stopColor="#93c5fd" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.08" />
+              <stop offset="10%" stopColor="#ffffff" stopOpacity="0.72" />
+              <stop offset="28%" stopColor="#e0f2fe" stopOpacity="0.65" />
+              <stop offset="65%" stopColor="#bfdbfe" stopOpacity="0.34" />
+              <stop offset="90%" stopColor="#93c5fd" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="#93c5fd" stopOpacity="0" />
             </linearGradient>
 
-            {/* Core Vertical Light Column */}
+            {/* Core Vertical Light Column: Faded apex into vibrant beam on avatar */}
             <linearGradient id="coreBeamGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-              <stop offset="30%" stopColor="#ffffff" stopOpacity="0.75" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.2" />
+              <stop offset="10%" stopColor="#ffffff" stopOpacity="0.95" />
+              <stop offset="35%" stopColor="#ffffff" stopOpacity="0.75" />
               <stop offset="70%" stopColor="#e0f2fe" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.06" />
+              <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.05" />
             </linearGradient>
 
-            {/* Top Lamp Radial Aperture Gradient */}
+            {/* Top Lamp Radial Aperture Gradient: Faded atmospheric glow */}
             <radialGradient id="topLampGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-              <stop offset="55%" stopColor="#ffffff" stopOpacity="0.95" />
-              <stop offset="80%" stopColor="#e0f2fe" stopOpacity="0.8" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="45%" stopColor="#ffffff" stopOpacity="0.6" />
+              <stop offset="75%" stopColor="#e0f2fe" stopOpacity="0.25" />
               <stop offset="100%" stopColor="#93c5fd" stopOpacity="0" />
             </radialGradient>
 
@@ -403,21 +406,21 @@ export const AboutAvatar3D: React.FC = () => {
 
           {/* 2. Wide Soft Volumetric Light Beam Cone */}
           <polygon 
-            points="210,95 290,95 435,565 65,565" 
+            points="185,15 315,15 440,565 60,565" 
             fill="url(#outerBeamGrad)" 
             filter="url(#spotlightWideBlur)" 
           />
 
           {/* 3. Medium Focused Light Beam Cone */}
           <polygon 
-            points="220,95 280,95 390,565 110,565" 
+            points="205,15 295,15 395,565 105,565" 
             fill="url(#innerBeamGrad)" 
             filter="url(#spotlightMedBlur)" 
           />
 
           {/* 4. Bright Center Core Light Shaft */}
           <polygon 
-            points="235,95 265,95 330,565 170,565" 
+            points="223,15 277,15 335,565 165,565" 
             fill="url(#coreBeamGrad)" 
             filter="url(#spotlightCoreBlur)" 
           />
@@ -427,10 +430,10 @@ export const AboutAvatar3D: React.FC = () => {
           <ellipse cx="250" cy="565" rx="150" ry="15" fill="url(#floorPuddleGrad)" />
           <ellipse cx="250" cy="565" rx="95" ry="9" fill="#ffffff" opacity="0.95" filter="url(#spotlightCoreBlur)" />
 
-          {/* 6. Top Overhead Lamp Fixture & Light Source */}
-          <ellipse cx="250" cy="95" rx="50" ry="14" fill="url(#topLampGrad)" filter="url(#spotlightCoreBlur)" />
-          <ellipse cx="250" cy="95" rx="40" ry="10" fill="#ffffff" />
-          <ellipse cx="250" cy="95" rx="28" ry="7" fill="#ffffff" filter="url(#spotlightCoreBlur)" />
+          {/* 6. Top Overhead Lamp Fixture & Wide Faded Glow */}
+          <ellipse cx="250" cy="15" rx="72" ry="18" fill="url(#topLampGrad)" filter="url(#spotlightWideBlur)" />
+          <ellipse cx="250" cy="15" rx="48" ry="12" fill="url(#topLampGrad)" filter="url(#spotlightMedBlur)" />
+          <ellipse cx="250" cy="15" rx="28" ry="7" fill="#ffffff" opacity="0.65" filter="url(#spotlightCoreBlur)" />
         </svg>
       </div>
 
