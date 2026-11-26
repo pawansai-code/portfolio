@@ -30,12 +30,12 @@ export const AboutAvatar3D: React.FC = () => {
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
-      38,
+      36,
       container.clientWidth / container.clientHeight,
       0.1,
       100
     );
-    camera.position.set(0, 1.25, 3.2);
+    camera.position.set(0, 0.9, 3.45);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -77,35 +77,14 @@ export const AboutAvatar3D: React.FC = () => {
     fillLight.position.set(0, 1.2, 2.5);
     scene.add(fillLight);
 
-    // Holographic glowing circular base pedestal
-    const pedestalGroup = new THREE.Group();
-    
-    // Outer glowing ring
-    const ringGeo = new THREE.RingGeometry(0.7, 0.76, 64);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x06b6d4,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.7,
-    });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = -Math.PI / 2;
-    ringMesh.position.y = 0.01;
-    pedestalGroup.add(ringMesh);
+    // Dedicated fill light for shoes and lower body
+    const shoeLight = new THREE.DirectionalLight(0x38bdf8, 1.8);
+    shoeLight.position.set(0, 0.4, 2.2);
+    scene.add(shoeLight);
 
-    // Inner subtle disc
-    const discGeo = new THREE.CircleGeometry(0.68, 64);
-    const discMat = new THREE.MeshBasicMaterial({
-      color: 0x1e3a8a,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.25,
-    });
-    const discMesh = new THREE.Mesh(discGeo, discMat);
-    discMesh.rotation.x = -Math.PI / 2;
-    pedestalGroup.add(discMesh);
-
-    scene.add(pedestalGroup);
+    const floorBounce = new THREE.DirectionalLight(0xffffff, 1.2);
+    floorBounce.position.set(0, -0.5, 1.5);
+    scene.add(floorBounce);
 
     // GLTFLoader
     const loader = new GLTFLoader();
@@ -136,10 +115,11 @@ export const AboutAvatar3D: React.FC = () => {
 
         scene.add(modelRoot);
 
-        // Adjust camera to frame avatar head-to-toe nicely
-        const headHeight = size.y;
-        camera.position.set(0, headHeight * 0.58, 2.7);
-        camera.lookAt(0, headHeight * 0.52, 0);
+        // Adjust camera to frame avatar head-to-toe with full shoe clearance
+        const modelHeight = size.y;
+        const targetCenterY = modelHeight * 0.45;
+        camera.position.set(0, targetCenterY, 3.4);
+        camera.lookAt(0, targetCenterY, 0);
 
         // Play waving / idling animation
         if (gltf.animations && gltf.animations.length > 0) {
@@ -245,11 +225,6 @@ export const AboutAvatar3D: React.FC = () => {
         modelRoot.rotation.y = currentRotationY + currentTiltX;
       }
 
-      // Slow gentle rotation of pedestal rings
-      if (ringMesh) {
-        ringMesh.rotation.z += 0.005;
-      }
-
       renderer.render(scene, camera);
     };
 
@@ -274,51 +249,27 @@ export const AboutAvatar3D: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[540px] sm:h-[600px] lg:h-[640px] rounded-3xl overflow-hidden bg-gradient-to-b from-blue-500/5 via-slate-100/50 dark:via-slate-900/40 to-cyan-500/10 border border-slate-200/90 dark:border-slate-800/90 shadow-2xl backdrop-blur-xl flex items-center justify-center select-none group">
+    <div className="relative w-full h-[620px] sm:h-[680px] lg:h-[720px] flex items-center justify-center select-none bg-transparent">
       
-      {/* Dynamic ambient background glow */}
-      <div className="absolute top-1/4 -right-10 w-72 h-72 bg-cyan-500/20 dark:bg-cyan-500/25 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-10 w-72 h-72 bg-blue-600/20 dark:bg-blue-600/25 blur-[120px] rounded-full pointer-events-none" />
-
       {/* 3D Canvas Mount Point */}
-      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing bg-transparent" />
 
       {/* Loading Overlay */}
       {loading && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-50/80 dark:bg-[#070b14]/85 backdrop-blur-md z-20">
-          <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4 text-cyan-500 shadow-lg shadow-cyan-500/20">
-            <Loader2 className="w-8 h-8 animate-spin" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-transparent z-20">
+          <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-3 text-cyan-500 shadow-md">
+            <Loader2 className="w-6 h-6 animate-spin" />
           </div>
-          <p className="text-sm font-mono font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span>Summoning 3D Avatar...</span>
-          </p>
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
-            Loading interactive model ({loadProgress}%)
+          <p className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Loading Avatar ({loadProgress}%)</span>
           </p>
         </div>
       )}
 
-      {/* Interactive Badge (Top Left) */}
-      <div className="absolute top-5 left-5 z-10 pointer-events-none">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 dark:bg-slate-950/80 text-cyan-400 text-xs font-mono font-bold border border-cyan-500/30 backdrop-blur-md shadow-lg shadow-cyan-500/10">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span>Interactive 3D Avatar</span>
-        </div>
-      </div>
-
-      {/* Drag Hint (Bottom Right) */}
-      <div className="absolute bottom-5 right-5 z-10 pointer-events-none transition-opacity duration-300 opacity-70 group-hover:opacity-100">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900/70 dark:bg-slate-950/70 text-slate-300 text-[11px] font-mono border border-slate-700/60 backdrop-blur-md">
-          <Rotate3d className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Drag to rotate</span>
-        </div>
-      </div>
-
-      {/* Status indicator (Bottom Left) */}
-      <div className="absolute bottom-5 left-5 z-10 pointer-events-none hidden sm:block">
-        <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-          <span className="text-cyan-500 font-semibold">Idle Animation</span> • Waving Live
+      {/* Minimal Drag Hint */}
+      <div className="absolute bottom-3 right-3 z-10 pointer-events-none opacity-0 hover:opacity-100 transition-opacity">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-5 rounded-lg text-slate-500 dark:text-slate-400 text-[20px] font-mono">
         </div>
       </div>
 
