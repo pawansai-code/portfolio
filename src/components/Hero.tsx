@@ -8,11 +8,11 @@ import { triggerCelebration } from '../utils/confetti';
 
 export const Hero: React.FC = () => {
   const roles = [
-    "FullStack Developer",
-    "Generative AI & RAG Engineer",
-    "Creative Problem Solver",
-    "UI/UX Enthusiast",
-    "Tech Innovator"
+  "Full Stack Developer",
+  "AI & ML Developer",
+  "Generative AI Engineer",
+  "RAG Application Developer",
+  "UI/UX Designer"
   ];
   const [roleIndex, setRoleIndex] = useState(0);
 
@@ -134,7 +134,7 @@ export const Hero: React.FC = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed mb-8"
             >
-              I build exceptional digital experiences. Combining deep technical expertise with a sharp eye for design, I craft modern, responsive, and performant web applications.
+              From designing the backend to building the frontend, I enjoy understanding how things fit together and bringing complete applications to life.
             </motion.p>
 
             {/* CTA Buttons */}

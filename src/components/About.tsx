@@ -1,54 +1,30 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  GraduationCap, Rocket, Building2, Calendar, Award
+  GraduationCap, Rocket, Building2, Calendar, Award,
+  Sparkles, MapPin, Briefcase, ArrowRight, CheckCircle2
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { AboutAvatar3D } from './AboutAvatar3D';
 
 export const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'story' | 'education'>('story');
 
-  const timelineMilestones = [
-    {
-      period: "10th Grade",
-      tag: "Foundations",
-      title: "The IT Dream & Early Foundations",
-      desc: "Sparked a clear direction toward computer science in 10th grade, building early programming fundamentals and committing to a B.E. in Computer Science Engineering.",
-    },
-    {
-      period: "College Entry",
-      tag: "ML & Python",
-      title: "Python & Weather Classification ML",
-      desc: "Mastered Python and machine learning algorithms. Completed a 21-day internship at Virtual Tech Services, developing a practical Weather Classification model.",
-    },
-    {
-      period: "Industry Internships",
-      tag: "Enterprise AI & Web",
-      title: "Generative AI & Production Web Engineering",
-      desc: "Built enterprise RAG workflows with LangChain, Pinecone, and Ollama at OneIntegral; engineered production React & Redux Toolkit web apps at SocialTek (earning a ₹5,000 stipend).",
-    },
-    {
-      period: "Present & Ahead",
-      tag: "Full-Stack & Drone R&D",
-      title: "MERN Stack Expansion & Autonomous Drone Systems",
-      desc: "Scaling into full-stack MERN engineering while keeping strong ML roots. Developing the NIDAR autonomous drone disaster response system alongside 3 hackathon wins.",
-    },
-  ];
-
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-white dark:bg-[#090d16] transition-colors duration-300">
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-blue-500/10 blur-[130px] rounded-full pointer-events-none" />
+      {/* Background decoration glows */}
+      <div className="absolute top-1/3 -left-20 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/15 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/3 -right-20 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-600/15 blur-[140px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold tracking-wider uppercase text-xs shadow-lg shadow-blue-500/30 border border-white/10 mb-4">
             About My Journey
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
-            Turning Curiosity into <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Intelligent Systems</span>
+            Curious About How <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Things Work</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
             A developer who bridges the gap between complex machine learning pipelines and intuitive, polished user experiences.
@@ -66,8 +42,8 @@ export const About: React.FC = () => {
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Rocket className="w-4 h-4" />
-              <span>My Story & Milestones</span>
+              <Rocket className="w-4 h-4 text-cyan-500" />
+              <span>About Me</span>
             </button>
 
             <button
@@ -78,7 +54,7 @@ export const About: React.FC = () => {
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <GraduationCap className="w-4 h-4" />
+              <GraduationCap className="w-4 h-4 text-indigo-400" />
               <span>Education</span>
             </button>
           </div>
@@ -91,77 +67,86 @@ export const About: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
             >
-              {/* Narrative Bio */}
+              {/* Left Column: Prominent, Visible "Who I Am" Narrative (col-span-7) */}
               <motion.div 
                 whileHover={{ y: -2 }}
                 transition={{ duration: 0.2 }}
-                className="lg:col-span-5 p-7 sm:p-8 rounded-3xl bg-slate-50/90 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 backdrop-blur-xl shadow-lg transition-all duration-300"
+                className="lg:col-span-7 p-8 sm:p-10 lg:p-12 rounded-3xl bg-slate-50/90 dark:bg-slate-900/75 border border-slate-200/90 dark:border-slate-800/90 backdrop-blur-xl shadow-xl transition-all duration-300 relative overflow-hidden"
               >
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-                  Who I Am
+                {/* Accent top gradient bar */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500" />
+
+                {/* Header with pill and title */}
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-cyan-400 font-mono text-xs font-bold border border-blue-500/20 shadow-sm">
+                    <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Personal Story & Ambition</span>
+                  </div>
+
+                  <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
+                    B.E. CSE • 2023 – 2027
+                  </span>
+                </div>
+
+                <h3 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-6 flex items-center gap-3">
+                  <span className="w-3 h-3 rounded-full bg-blue-500 dark:bg-cyan-400 animate-pulse" />
+                  <span>Who I Am</span>
                 </h3>
                 
-                <div className="space-y-3.5 text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
-                  {personalInfo.whoAmIParagraphs.map((paragraph, idx) => (
-                    <p 
-                      key={idx}
-                      className={idx === personalInfo.whoAmIParagraphs.length - 1 ? "font-semibold text-blue-600 dark:text-blue-400 pt-1" : ""}
-                    >
-                      {paragraph}
+                {/* Story Paragraphs - Bigger, Highly Visible & Readable */}
+                <div className="space-y-4 text-slate-700 dark:text-slate-200 leading-relaxed text-sm sm:text-base lg:text-[17px]">
+                  <p>
+                    {personalInfo.whoAmIParagraphs[0]}
+                  </p>
+                  <p>
+                    {personalInfo.whoAmIParagraphs[1]}
+                  </p>
+                  <p>
+                    {personalInfo.whoAmIParagraphs[2]}
+                  </p>
+                </div>
+
+                {/* Final Callout Card */}
+                {personalInfo.whoAmIParagraphs[3] && (
+                  <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-indigo-500/10 border border-blue-500/30 dark:border-cyan-500/30 shadow-md">
+                    <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-cyan-400 mb-1.5">
+                      <Rocket className="w-4 h-4 text-cyan-400" />
+                      <span>The Horizon</span>
+                    </div>
+                    <p className="font-semibold text-slate-900 dark:text-white text-sm sm:text-base leading-snug">
+                      "{personalInfo.whoAmIParagraphs[3]}"
                     </p>
-                  ))}
+                  </div>
+                )}
+
+                {/* Quick Info Footer Bar */}
+                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
+                  <div className="flex items-center gap-4">
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-cyan-500" />
+                      <span>{personalInfo.location}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Briefcase className="w-3.5 h-3.5 text-blue-500" />
+                      <span>Full-Stack & ML</span>
+                    </span>
+                  </div>
+
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-1.5 font-bold text-blue-600 dark:text-cyan-400 hover:underline"
+                  >
+                    <span>Let's Connect</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </motion.div>
 
-              {/* Timeline Cards */}
-              <div className="lg:col-span-7 relative">
-                {/* Subtle animated flow spine */}
-                <div className="absolute left-6 sm:left-8 top-4 bottom-4 w-0.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                  <motion.div
-                    animate={{ y: ['-100%', '200%'] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                    className="w-full h-24 bg-gradient-to-b from-transparent via-blue-500 dark:via-cyan-400 to-transparent opacity-70"
-                  />
-                </div>
-                
-                <div className="space-y-5">
-                  {timelineMilestones.map((m, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 14 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-20px' }}
-                      transition={{ duration: 0.35, delay: idx * 0.08 }}
-                      whileHover={{ y: -2 }}
-                      className="relative pl-14 sm:pl-16 group cursor-default"
-                    >
-                      {/* Timeline Node */}
-                      <div className="absolute left-4 sm:left-6 top-5 -translate-x-1/2 flex items-center justify-center">
-                        <div className="w-3.5 h-3.5 rounded-full bg-white dark:bg-slate-950 border-2 border-blue-500 dark:border-cyan-400 transition-transform duration-300 group-hover:scale-125 shadow-sm shadow-blue-500/20" />
-                      </div>
-
-                      <div className="p-5 sm:p-6 rounded-2xl bg-slate-50/90 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-md shadow-sm hover:shadow-md">
-                        <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                          <span className="text-xs font-mono font-semibold text-blue-600 dark:text-cyan-400">
-                            {m.period}
-                          </span>
-                          <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700/60">
-                            {m.tag}
-                          </span>
-                        </div>
-                        <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
-                          {m.title}
-                        </h4>
-                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                          {m.desc}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+              {/* Right Column: 3D GLB Model Standing & Wavering Hands (col-span-5) */}
+              <div className="lg:col-span-5 w-full">
+                <AboutAvatar3D />
               </div>
             </motion.div>
           )}
@@ -183,7 +168,7 @@ export const About: React.FC = () => {
                       Academic Background
                     </span>
                     <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                      Education
+                      Education & Accreditations
                     </h3>
                   </div>
                 </div>
