@@ -264,46 +264,45 @@ export const Drone3D: React.FC = () => {
       }
     );
 
-    // Mouse Interaction strictly within the drone canvas area
+    // Mouse Interaction strictly within the drone canvas container
     const handleMouseDown = (e: MouseEvent) => {
       isDragging = true;
       previousMouseX = e.clientX;
+      window.addEventListener('mousemove', handleWindowDragMove);
+      window.addEventListener('mouseup', handleWindowDragEnd);
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const isInside =
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom;
-
-      if (isDragging) {
-        const deltaX = e.clientX - previousMouseX;
-        targetRotationY += deltaX * 0.01;
-        previousMouseX = e.clientX;
-      } else if (isInside) {
-        // Flight banking reaction ONLY when the cursor is inside the drone container
-        const mouseRelX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        const mouseRelY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-        targetBankX = mouseRelX * 0.28;
-        targetPitchZ = mouseRelY * 0.20;
-      } else {
-        // Outside drone area - keep neutral level flight (no tilting or rotation)
-        targetBankX = 0;
-        targetPitchZ = 0;
-      }
+    // Dragging rotation only active while mouse is held down
+    const handleWindowDragMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - previousMouseX;
+      targetRotationY += deltaX * 0.01;
+      previousMouseX = e.clientX;
     };
 
-    const handleMouseLeave = () => {
-      if (!isDragging) {
-        targetBankX = 0;
-        targetPitchZ = 0;
-      }
-    };
-
-    const handleMouseUp = () => {
+    const handleWindowDragEnd = () => {
       isDragging = false;
+      targetBankX = 0;
+      targetPitchZ = 0;
+      window.removeEventListener('mousemove', handleWindowDragMove);
+      window.removeEventListener('mouseup', handleWindowDragEnd);
+    };
+
+    // Cursor hover banking ONLY fires when mouse is physically inside the drone container
+    const handleContainerMouseMove = (e: MouseEvent) => {
+      if (isDragging) return;
+      const rect = container.getBoundingClientRect();
+      const rawX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const rawY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      // Strictly clamp to container boundaries
+      const mouseRelX = Math.max(-1, Math.min(1, rawX));
+      const mouseRelY = Math.max(-1, Math.min(1, rawY));
+      targetBankX = mouseRelX * 0.22;
+      targetPitchZ = mouseRelY * 0.16;
+    };
+
+    const handleContainerMouseLeave = () => {
+      // Return to completely neutral level flight when mouse leaves the drone viewport
       targetBankX = 0;
       targetPitchZ = 0;
     };
@@ -331,13 +330,14 @@ export const Drone3D: React.FC = () => {
       targetPitchZ = 0;
     };
 
+    // Listeners confined strictly to the 3D container (no window-wide hover events)
     container.addEventListener('mousedown', handleMouseDown);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('mousemove', handleContainerMouseMove);
+    container.addEventListener('mouseleave', handleContainerMouseLeave);
     container.addEventListener('touchstart', handleTouchStart, { passive: true });
     container.addEventListener('touchmove', handleTouchMove, { passive: true });
     container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('touchcancel', handleTouchEnd);
 
     // Responsive container resize observer
     const resizeObserver = new ResizeObserver((entries) => {
@@ -359,22 +359,21 @@ export const Drone3D: React.FC = () => {
 
       const time = clock.getElapsedTime();
 
-      // Realistic flight controller micro-oscillations & hovering altitude wave
-      const hoverY = Math.sin(time * 2.2) * 0.12 + Math.cos(time * 3.8) * 0.025;
-      const hoverRoll = Math.sin(time * 1.6) * 0.035;
-      const hoverPitch = Math.cos(time * 1.9) * 0.028;
-      const hoverYaw = Math.sin(time * 0.8) * 0.08;
+      // Realistic flight controller micro-oscillations & hovering altitude wave (clean vertical hover)
+      const hoverY = Math.sin(time * 2.2) * 0.11 + Math.cos(time * 3.8) * 0.02;
+      const hoverRoll = Math.sin(time * 1.6) * 0.025;
+      const hoverPitch = Math.cos(time * 1.9) * 0.02;
 
       // Smooth damping for user drag and aerodynamic banking
       currentRotationY += (targetRotationY - currentRotationY) * 0.06;
       currentBankX += (targetBankX - currentBankX) * 0.06;
       currentPitchZ += (targetPitchZ - currentPitchZ) * 0.06;
 
-      // Apply flight dynamics
+      // Apply flight dynamics - rotation Y ONLY changes when user explicitly drags on the model
       droneGroup.position.y = hoverY;
       droneGroup.rotation.z = hoverRoll - currentBankX;
       droneGroup.rotation.x = hoverPitch + currentPitchZ;
-      droneGroup.rotation.y = currentRotationY + hoverYaw;
+      droneGroup.rotation.y = currentRotationY;
 
       // Spin active drone propellers at high speed
       activeRotors.forEach(({ group, dir }) => {
@@ -403,12 +402,14 @@ export const Drone3D: React.FC = () => {
       cancelAnimationFrame(animationFrameId);
       resizeObserver.disconnect();
       container.removeEventListener('mousedown', handleMouseDown);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('mousemove', handleContainerMouseMove);
+      container.removeEventListener('mouseleave', handleContainerMouseLeave);
+      window.removeEventListener('mousemove', handleWindowDragMove);
+      window.removeEventListener('mouseup', handleWindowDragEnd);
       container.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('touchcancel', handleTouchEnd);
 
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
