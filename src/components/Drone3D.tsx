@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Loader2, Radio, Compass, Rotate3d, Sparkles } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import droneModelUrl from '../assets/Drone.glb';
 
 export const Drone3D: React.FC = () => {
@@ -417,30 +417,6 @@ export const Drone3D: React.FC = () => {
           </p>
         </div>
       )}
-
-      {/* Floating Autonomous Flight Telemetry Overlay (Top Left) */}
-      <div className="absolute top-4 left-4 z-10 pointer-events-none">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 dark:bg-slate-950/80 text-cyan-400 text-xs font-mono font-semibold border border-cyan-500/30 backdrop-blur-md shadow-lg shadow-cyan-500/10">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span>PX4 / MAVROS • Autonomous Hover</span>
-        </div>
-      </div>
-
-      {/* Drag & Bank Hint (Bottom Right) */}
-      <div className="absolute bottom-4 right-4 z-10 pointer-events-none transition-opacity duration-300 opacity-80 hover:opacity-100">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/75 dark:bg-slate-950/75 text-slate-300 text-[11px] font-mono border border-slate-700/60 backdrop-blur-md shadow-sm">
-          <Rotate3d className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Drag to inspect 360°</span>
-        </div>
-      </div>
-
-      {/* Subtle Bottom Flight Altitude Status (Bottom Left) */}
-      <div className="absolute bottom-4 left-4 z-10 pointer-events-none hidden sm:block">
-        <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2">
-          <Radio className="w-3 h-3 text-cyan-400 animate-pulse" />
-          <span>GCS Telemetry Active • Altitude 1.2m</span>
-        </div>
-      </div>
 
     </div>
   );
