@@ -320,40 +320,118 @@ export const AboutAvatar3D: React.FC = () => {
   return (
     <div className="relative w-full h-[620px] sm:h-[680px] lg:h-[720px] flex items-center justify-center select-none bg-transparent">
       
-      {/* Theatrical Spotlight Cone & Stage Floor Illumination */}
+      {/* Procedural Overhead Stage Spotlight Effect */}
       <div 
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-center justify-center"
+        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
         aria-hidden="true"
       >
-        {/* Overhead Spotlight Cone Beam */}
-        <div 
-          className="absolute -top-12 left-1/2 -translate-x-1/2 w-[340px] sm:w-[440px] h-[580px] opacity-70 dark:opacity-85 blur-2xl"
-          style={{
-            background: 'conic-gradient(from 180deg at 50% 0%, transparent 60deg, rgba(56, 189, 248, 0.22) 78deg, rgba(99, 102, 241, 0.26) 90deg, rgba(56, 189, 248, 0.22) 102deg, transparent 120deg)',
-            clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-          }}
-        />
+        <svg 
+          viewBox="0 0 500 620" 
+          className="w-full h-full max-h-[720px] object-contain select-none pointer-events-none scale-105 sm:scale-110 drop-shadow-[0_0_40px_rgba(186,230,253,0.3)]"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <defs>
+            {/* Soft Blur Filters */}
+            <filter id="spotlightWideBlur" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="16" />
+            </filter>
+            <filter id="spotlightMedBlur" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="8" />
+            </filter>
+            <filter id="spotlightCoreBlur" x="-10%" y="-10%" width="120%" height="120%">
+              <feGaussianBlur stdDeviation="4" />
+            </filter>
+            <filter id="spotlightSmokeBlur" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="22" />
+            </filter>
 
-        {/* Soft Radial Ambient Spotlight Glow */}
-        <div 
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[90px] pointer-events-none opacity-60 dark:opacity-80"
-          style={{
-            background: 'radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(99, 102, 241, 0.16) 45%, transparent 70%)',
-          }}
-        />
+            {/* Vertical Gradient for Outer Beam */}
+            <linearGradient id="outerBeamGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+              <stop offset="18%" stopColor="#dbeafe" stopOpacity="0.5" />
+              <stop offset="55%" stopColor="#93c5fd" stopOpacity="0.24" />
+              <stop offset="85%" stopColor="#60a5fa" stopOpacity="0.09" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+            </linearGradient>
 
-        {/* Circular Stage Floor Spotlight Disc (under feet) */}
-        <div 
-          className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 w-[280px] sm:w-[380px] h-[95px] rounded-full blur-xl pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(56, 189, 248, 0.5) 0%, rgba(59, 130, 246, 0.28) 40%, rgba(99, 102, 241, 0.12) 65%, transparent 80%)',
-          }}
-        />
+            {/* Vertical Gradient for Inner Beam */}
+            <linearGradient id="innerBeamGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+              <stop offset="25%" stopColor="#e0f2fe" stopOpacity="0.7" />
+              <stop offset="65%" stopColor="#bfdbfe" stopOpacity="0.36" />
+              <stop offset="90%" stopColor="#93c5fd" stopOpacity="0.14" />
+              <stop offset="100%" stopColor="#93c5fd" stopOpacity="0.02" />
+            </linearGradient>
 
-        {/* Crisp Spotlight Floor Ring Accent */}
-        <div 
-          className="absolute bottom-11 sm:bottom-14 left-1/2 -translate-x-1/2 w-[220px] sm:w-[290px] h-[64px] rounded-full border border-cyan-400/35 dark:border-cyan-400/50 pointer-events-none opacity-60 shadow-[0_0_30px_rgba(56,189,248,0.4)]"
-        />
+            {/* Core Vertical Light Column */}
+            <linearGradient id="coreBeamGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="30%" stopColor="#ffffff" stopOpacity="0.75" />
+              <stop offset="70%" stopColor="#e0f2fe" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.06" />
+            </linearGradient>
+
+            {/* Top Lamp Radial Aperture Gradient */}
+            <radialGradient id="topLampGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="55%" stopColor="#ffffff" stopOpacity="0.95" />
+              <stop offset="80%" stopColor="#e0f2fe" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#93c5fd" stopOpacity="0" />
+            </radialGradient>
+
+            {/* Stage Floor Spotlight Puddle Gradient */}
+            <radialGradient id="floorPuddleGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+              <stop offset="30%" stopColor="#e0f2fe" stopOpacity="0.82" />
+              <stop offset="60%" stopColor="#93c5fd" stopOpacity="0.5" />
+              <stop offset="85%" stopColor="#60a5fa" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+            </radialGradient>
+
+            {/* Floor Smoke / Haze Gradient */}
+            <radialGradient id="floorSmokeGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.25" />
+              <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+
+          {/* 1. Base Atmospheric Ground Smoke / Fog Puffs */}
+          <ellipse cx="250" cy="555" rx="210" ry="42" fill="url(#floorSmokeGrad)" filter="url(#spotlightSmokeBlur)" />
+          <ellipse cx="190" cy="545" rx="150" ry="34" fill="url(#floorSmokeGrad)" filter="url(#spotlightSmokeBlur)" />
+          <ellipse cx="310" cy="550" rx="160" ry="36" fill="url(#floorSmokeGrad)" filter="url(#spotlightSmokeBlur)" />
+
+          {/* 2. Wide Soft Volumetric Light Beam Cone */}
+          <polygon 
+            points="210,95 290,95 435,565 65,565" 
+            fill="url(#outerBeamGrad)" 
+            filter="url(#spotlightWideBlur)" 
+          />
+
+          {/* 3. Medium Focused Light Beam Cone */}
+          <polygon 
+            points="220,95 280,95 390,565 110,565" 
+            fill="url(#innerBeamGrad)" 
+            filter="url(#spotlightMedBlur)" 
+          />
+
+          {/* 4. Bright Center Core Light Shaft */}
+          <polygon 
+            points="235,95 265,95 330,565 170,565" 
+            fill="url(#coreBeamGrad)" 
+            filter="url(#spotlightCoreBlur)" 
+          />
+
+          {/* 5. Stage Floor Light Oval Puddle (under avatar's shoes) */}
+          <ellipse cx="250" cy="565" rx="180" ry="20" fill="url(#floorPuddleGrad)" filter="url(#spotlightMedBlur)" />
+          <ellipse cx="250" cy="565" rx="150" ry="15" fill="url(#floorPuddleGrad)" />
+          <ellipse cx="250" cy="565" rx="95" ry="9" fill="#ffffff" opacity="0.95" filter="url(#spotlightCoreBlur)" />
+
+          {/* 6. Top Overhead Lamp Fixture & Light Source */}
+          <ellipse cx="250" cy="95" rx="50" ry="14" fill="url(#topLampGrad)" filter="url(#spotlightCoreBlur)" />
+          <ellipse cx="250" cy="95" rx="40" ry="10" fill="#ffffff" />
+          <ellipse cx="250" cy="95" rx="28" ry="7" fill="#ffffff" filter="url(#spotlightCoreBlur)" />
+        </svg>
       </div>
 
       {/* 3D Canvas Mount Point */}
