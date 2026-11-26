@@ -64,10 +64,29 @@ export const AboutAvatar3D: React.FC = () => {
     scene.add(ambientLight);
 
     // Main key light
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
     keyLight.position.set(2, 4, 3);
     keyLight.castShadow = true;
     scene.add(keyLight);
+
+    // Theatrical Overhead Spotlight directed down onto the character
+    const avatarSpotlight = new THREE.SpotLight(0xffffff, 5.0);
+    avatarSpotlight.position.set(0, 5.2, 2.0);
+    avatarSpotlight.angle = Math.PI / 4.2;
+    avatarSpotlight.penumbra = 0.55;
+    avatarSpotlight.decay = 1.2;
+    avatarSpotlight.distance = 12;
+    avatarSpotlight.castShadow = true;
+    avatarSpotlight.target = pivotGroup;
+    scene.add(avatarSpotlight);
+
+    // Cyan top-back rim spotlight for silhouette separation
+    const cyanBackSpot = new THREE.SpotLight(0x38bdf8, 3.5);
+    cyanBackSpot.position.set(0, 4.5, -2.0);
+    cyanBackSpot.angle = Math.PI / 3.8;
+    cyanBackSpot.penumbra = 0.6;
+    cyanBackSpot.target = pivotGroup;
+    scene.add(cyanBackSpot);
 
     // Cyan rim light (from left-behind)
     const cyanRim = new THREE.DirectionalLight(0x06b6d4, 2.8);
@@ -301,8 +320,44 @@ export const AboutAvatar3D: React.FC = () => {
   return (
     <div className="relative w-full h-[620px] sm:h-[680px] lg:h-[720px] flex items-center justify-center select-none bg-transparent">
       
+      {/* Theatrical Spotlight Cone & Stage Floor Illumination */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-center justify-center"
+        aria-hidden="true"
+      >
+        {/* Overhead Spotlight Cone Beam */}
+        <div 
+          className="absolute -top-12 left-1/2 -translate-x-1/2 w-[340px] sm:w-[440px] h-[580px] opacity-70 dark:opacity-85 blur-2xl"
+          style={{
+            background: 'conic-gradient(from 180deg at 50% 0%, transparent 60deg, rgba(56, 189, 248, 0.22) 78deg, rgba(99, 102, 241, 0.26) 90deg, rgba(56, 189, 248, 0.22) 102deg, transparent 120deg)',
+            clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+          }}
+        />
+
+        {/* Soft Radial Ambient Spotlight Glow */}
+        <div 
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[90px] pointer-events-none opacity-60 dark:opacity-80"
+          style={{
+            background: 'radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(99, 102, 241, 0.16) 45%, transparent 70%)',
+          }}
+        />
+
+        {/* Circular Stage Floor Spotlight Disc (under feet) */}
+        <div 
+          className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 w-[280px] sm:w-[380px] h-[95px] rounded-full blur-xl pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(56, 189, 248, 0.5) 0%, rgba(59, 130, 246, 0.28) 40%, rgba(99, 102, 241, 0.12) 65%, transparent 80%)',
+          }}
+        />
+
+        {/* Crisp Spotlight Floor Ring Accent */}
+        <div 
+          className="absolute bottom-11 sm:bottom-14 left-1/2 -translate-x-1/2 w-[220px] sm:w-[290px] h-[64px] rounded-full border border-cyan-400/35 dark:border-cyan-400/50 pointer-events-none opacity-60 shadow-[0_0_30px_rgba(56,189,248,0.4)]"
+        />
+      </div>
+
       {/* 3D Canvas Mount Point */}
-      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing bg-transparent" />
+      <div ref={mountRef} className="relative z-10 w-full h-full cursor-grab active:cursor-grabbing bg-transparent" />
 
       {/* Loading Overlay */}
       {loading && (

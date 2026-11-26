@@ -4,8 +4,6 @@ import {
   Sun, Moon, Menu, X, Terminal
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { personalInfo } from '../data/portfolioData';
-import { triggerCelebration } from '../utils/confetti';
 
 interface NavbarProps {
   onOpenTerminal?: () => void;
@@ -62,11 +60,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
     { name: 'Contact', href: '#contact' },
   ];
 
-  const handleResumeDownload = () => {
-    triggerCelebration();
-    window.open(personalInfo.resume, '_blank');
-  };
-
   return (
     <>
       <header
@@ -117,14 +110,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-3 sm:gap-4">
-              {/* Resume CTA Button */}
-              <button
-                onClick={handleResumeDownload}
-                className="inline-flex items-center justify-center px-6 py-2 rounded-full font-bold text-sm text-white bg-gradient-to-r from-[#5a8bf5] to-[#9c91ff] hover:from-[#4a7de8] hover:to-[#8c80fa] shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-              >
-                Resume
-              </button>
-
               {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}
@@ -180,18 +165,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
                 );
               })}
 
-              <div className="pt-3 mt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleResumeDownload();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#5a8bf5] to-[#9c91ff] shadow-md shadow-blue-500/25"
-                >
-                  <span>Resume</span>
-                </button>
-
-                {onOpenTerminal && (
+              {onOpenTerminal && (
+                <div className="pt-3 mt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
                   <button
                     onClick={() => {
                       setMobileMenuOpen(false);
@@ -202,8 +177,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
                     <Terminal className="w-4 h-4 text-cyan-500" />
                     <span>Launch Terminal CLI</span>
                   </button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

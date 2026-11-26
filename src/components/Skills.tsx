@@ -288,10 +288,6 @@ export const Skills: React.FC<SkillsProps> = ({ onSelectSkill }) => {
                     {group.title}
                   </h3>
                 </div>
-
-                <span className="text-xs font-mono font-medium px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800/70 text-slate-600 dark:text-slate-400">
-                  {group.skills.length} Techs
-                </span>
               </div>
 
               {/* Magnetic Interactive Skill Badges */}
