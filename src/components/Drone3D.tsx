@@ -264,7 +264,7 @@ export const Drone3D: React.FC = () => {
       }
     );
 
-    // Mouse Interaction
+    // Mouse Interaction strictly within the drone canvas area
     const handleMouseDown = (e: MouseEvent) => {
       isDragging = true;
       previousMouseX = e.clientX;
@@ -272,22 +272,40 @@ export const Drone3D: React.FC = () => {
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      const mouseRelX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const mouseRelY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      const isInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
 
       if (isDragging) {
         const deltaX = e.clientX - previousMouseX;
         targetRotationY += deltaX * 0.01;
         previousMouseX = e.clientX;
-      } else {
-        // Flight banking reaction to cursor (rolls into turn, pitches with cursor)
+      } else if (isInside) {
+        // Flight banking reaction ONLY when the cursor is inside the drone container
+        const mouseRelX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        const mouseRelY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
         targetBankX = mouseRelX * 0.28;
         targetPitchZ = mouseRelY * 0.20;
+      } else {
+        // Outside drone area - keep neutral level flight (no tilting or rotation)
+        targetBankX = 0;
+        targetPitchZ = 0;
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (!isDragging) {
+        targetBankX = 0;
+        targetPitchZ = 0;
       }
     };
 
     const handleMouseUp = () => {
       isDragging = false;
+      targetBankX = 0;
+      targetPitchZ = 0;
     };
 
     // Touch Interaction
@@ -309,14 +327,17 @@ export const Drone3D: React.FC = () => {
 
     const handleTouchEnd = () => {
       isDragging = false;
+      targetBankX = 0;
+      targetPitchZ = 0;
     };
 
     container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
     container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd);
 
     // Responsive container resize observer
     const resizeObserver = new ResizeObserver((entries) => {
@@ -382,6 +403,7 @@ export const Drone3D: React.FC = () => {
       cancelAnimationFrame(animationFrameId);
       resizeObserver.disconnect();
       container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
       container.removeEventListener('touchstart', handleTouchStart);
