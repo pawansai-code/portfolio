@@ -151,11 +151,13 @@ export const Drone3D: React.FC = () => {
           if (c.parent) c.parent.remove(c);
         });
 
-        // Hide static, merged propeller mesh so we can spin individual dynamic rotors
-        const staticProps = rawModel.getObjectByName('Cylinder_001');
-        if (staticProps) {
-          staticProps.visible = false;
-        }
+        // Hide all static, merged propeller meshes (both Cylinder_001 and Cylinder_028)
+        ['Cylinder_001', 'Cylinder_028'].forEach((name) => {
+          const staticProps = rawModel.getObjectByName(name);
+          if (staticProps) {
+            staticProps.visible = false;
+          }
+        });
 
         // Compute drone bounds and center
         const box = new THREE.Box3().setFromObject(rawModel);
@@ -175,12 +177,14 @@ export const Drone3D: React.FC = () => {
         starboardNavLight.position.set(size.x * 0.45 * targetScale, 0.05, 0);
         beaconLight.position.set(0, -size.y * 0.3 * targetScale, -size.z * 0.4 * targetScale);
 
-        // Build 4 dynamic high-speed spinning propeller rotor assemblies at exact motor positions
+        // Build all 6 dynamic high-speed spinning propeller rotor assemblies (Hexacopter configuration)
         const rotorCoords = [
-          { x: 0.4871, y: 0.183, z: 0.7445, dir: 1 },   // Front-Right (CW)
-          { x: -0.4871, y: 0.183, z: 0.7445, dir: -1 }, // Front-Left (CCW)
-          { x: -0.4871, y: 0.183, z: -0.7445, dir: 1 },  // Rear-Left (CW)
-          { x: 0.4871, y: 0.183, z: -0.7445, dir: -1 }, // Rear-Right (CCW)
+          { x: 0.4871, y: 0.183, z: 0.7445, dir: 1 },    // Front-Right (CW)
+          { x: 0.8858, y: 0.183, z: -0.0035, dir: -1 },  // Mid-Right (CCW)
+          { x: 0.4871, y: 0.183, z: -0.7445, dir: 1 },   // Rear-Right (CW)
+          { x: -0.4871, y: 0.183, z: -0.7445, dir: -1 }, // Rear-Left (CCW)
+          { x: -0.8858, y: 0.183, z: -0.0035, dir: 1 },  // Mid-Left (CW)
+          { x: -0.4871, y: 0.183, z: 0.7445, dir: -1 },  // Front-Left (CCW)
         ];
 
         // Shared rotor materials
