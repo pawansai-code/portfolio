@@ -117,6 +117,9 @@ export const Drone3D: React.FC = () => {
     const loader = new GLTFLoader();
     const clock = new THREE.Clock();
 
+    // Rotors array for continuous high-speed spinning
+    const activeRotors: { group: THREE.Group; dir: number }[] = [];
+
     // Interactive Drag & Tilt Controls
     let isDragging = false;
     let previousMouseX = 0;
@@ -148,6 +151,12 @@ export const Drone3D: React.FC = () => {
           if (c.parent) c.parent.remove(c);
         });
 
+        // Hide static, merged propeller mesh so we can spin individual dynamic rotors
+        const staticProps = rawModel.getObjectByName('Cylinder_001');
+        if (staticProps) {
+          staticProps.visible = false;
+        }
+
         // Compute drone bounds and center
         const box = new THREE.Box3().setFromObject(rawModel);
         const center = box.getCenter(new THREE.Vector3());
@@ -165,6 +174,62 @@ export const Drone3D: React.FC = () => {
         portNavLight.position.set(-size.x * 0.45 * targetScale, 0.05, 0);
         starboardNavLight.position.set(size.x * 0.45 * targetScale, 0.05, 0);
         beaconLight.position.set(0, -size.y * 0.3 * targetScale, -size.z * 0.4 * targetScale);
+
+        // Build 4 dynamic high-speed spinning propeller rotor assemblies at exact motor positions
+        const rotorCoords = [
+          { x: 0.4871, y: 0.183, z: 0.7445, dir: 1 },   // Front-Right (CW)
+          { x: -0.4871, y: 0.183, z: 0.7445, dir: -1 }, // Front-Left (CCW)
+          { x: -0.4871, y: 0.183, z: -0.7445, dir: 1 },  // Rear-Left (CW)
+          { x: 0.4871, y: 0.183, z: -0.7445, dir: -1 }, // Rear-Right (CCW)
+        ];
+
+        // Shared rotor materials
+        const bladeGeo = new THREE.BoxGeometry(0.022, 0.004, 0.43);
+        const bladeMat = new THREE.MeshStandardMaterial({
+          color: 0x111827,
+          roughness: 0.35,
+          metalness: 0.6,
+        });
+
+        const capGeo = new THREE.CylinderGeometry(0.016, 0.018, 0.02, 16);
+        const capMat = new THREE.MeshStandardMaterial({
+          color: 0x06b6d4, // Anodized cyan motor cap
+          metalness: 0.8,
+          roughness: 0.25,
+        });
+
+        const blurDiscGeo = new THREE.CircleGeometry(0.215, 32);
+        const blurDiscMat = new THREE.MeshBasicMaterial({
+          color: 0x38bdf8,
+          transparent: true,
+          opacity: 0.22,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        });
+
+        rotorCoords.forEach((coord) => {
+          const rotorAssembly = new THREE.Group();
+          rotorAssembly.position.set(coord.x, coord.y, coord.z);
+
+          // Carbon-fiber dual blade
+          const bladeMesh = new THREE.Mesh(bladeGeo, bladeMat);
+          bladeMesh.castShadow = true;
+          rotorAssembly.add(bladeMesh);
+
+          // Center motor spinner cap
+          const capMesh = new THREE.Mesh(capGeo, capMat);
+          capMesh.position.y = 0.008;
+          rotorAssembly.add(capMesh);
+
+          // High-speed aerodynamic propeller motion blur disc
+          const blurDisc = new THREE.Mesh(blurDiscGeo, blurDiscMat);
+          blurDisc.rotation.x = -Math.PI / 2;
+          blurDisc.position.y = 0.002;
+          rotorAssembly.add(blurDisc);
+
+          rawModel.add(rotorAssembly);
+          activeRotors.push({ group: rotorAssembly, dir: coord.dir });
+        });
 
         // Enhance materials
         rawModel.traverse((child) => {
@@ -285,6 +350,11 @@ export const Drone3D: React.FC = () => {
       droneGroup.rotation.z = hoverRoll - currentBankX;
       droneGroup.rotation.x = hoverPitch + currentPitchZ;
       droneGroup.rotation.y = currentRotationY + hoverYaw;
+
+      // Spin active drone propellers at high speed
+      activeRotors.forEach(({ group, dir }) => {
+        group.rotation.y += 0.55 * dir;
+      });
 
       // Aviation strobe lights pulse
       const strobeTime = (time * 1.5) % 1.0;
