@@ -191,16 +191,12 @@ export const Experience: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 font-mono text-xs font-bold tracking-wider uppercase border border-blue-500/20 mb-4 shadow-sm">
             <Radio className="w-3.5 h-3.5 animate-pulse text-cyan-500" />
-            <span>Career & Engineering Milestones</span>
+            <span>Experience</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
-            Experience <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 dark:from-cyan-300 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">Timeline & Flow</span>
+            My Professional <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 dark:from-cyan-300 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">Experience</span>
           </h2>
-
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            Hands-on delivery spanning Enterprise Generative AI & RAG pipelines and modern production full-stack engineering.
-          </p>
         </div>
 
         {/* Interactive Flow Timeline Container */}

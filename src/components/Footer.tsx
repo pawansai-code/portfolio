@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, Linkedin, Mail, Heart, Palette } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Mail, Palette } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export const Footer: React.FC = () => {
@@ -75,13 +75,8 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright row */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 font-mono">
+        <div className="pt-8 text-center text-xs text-slate-500 dark:text-slate-400 font-mono">
           <p>© {new Date().getFullYear()} Pawan Sai G. All rights reserved.</p>
-          <p className="flex items-center gap-1.5">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
-            <span>using React 19, TypeScript & Tailwind CSS</span>
-          </p>
         </div>
 
       </div>

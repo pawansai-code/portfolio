@@ -26,7 +26,7 @@ export const Hackathons: React.FC = () => {
             Hackathons & <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Engineering Contests</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
-            Pushing boundaries under intense time constraints — building real-world solutions that win podium finishes.
+            Pushing boundaries under intense time constraints — building real-world solutions.
           </p>
         </div>
 

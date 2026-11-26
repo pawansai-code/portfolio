@@ -23,9 +23,6 @@ export const Workshops: React.FC = () => {
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-[#b8d9ff] tracking-tight mb-4">
             Workshops & <span className="bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400 bg-clip-text text-transparent">Knowledge Sharing</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">
-            Mentoring junior engineers, conducting design sessions, and staying at the cutting edge of modern frontend conferences.
-          </p>
         </div>
 
         {/* Workshops Grid */}
