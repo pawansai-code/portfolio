@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Loader2, Rotate3d, Sparkles } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import avatarModelUrl from '../assets/model (1).glb';
 
 export const AboutAvatar3D: React.FC = () => {
@@ -15,7 +15,7 @@ export const AboutAvatar3D: React.FC = () => {
 
     let animationFrameId: number;
     let mixer: THREE.AnimationMixer | null = null;
-    let modelRoot: THREE.Group | null = null;
+    let pivotGroup: THREE.Group = new THREE.Group();
 
     // Interaction state
     let isDragging = false;
@@ -27,37 +27,44 @@ export const AboutAvatar3D: React.FC = () => {
 
     // Scene
     const scene = new THREE.Scene();
+    scene.add(pivotGroup);
 
-    // Camera
+    // Initial width and height
+    const initialWidth = container.clientWidth || 400;
+    const initialHeight = container.clientHeight || 700;
+
+    // Camera setup - vertical FOV 36 deg for cinematic full-body framing
     const camera = new THREE.PerspectiveCamera(
       36,
-      container.clientWidth / container.clientHeight,
+      initialWidth / initialHeight,
       0.1,
       100
     );
-    camera.position.set(0, 0.9, 3.45);
+    // Default position (will be perfected once model dimensions load)
+    camera.position.set(0, 0.92, 3.5);
+    camera.lookAt(0, 0.9, 0);
 
-    // Renderer
+    // Renderer with full alpha transparency (no background box)
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
       powerPreference: 'high-performance',
     });
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setSize(initialWidth, initialHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.25;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
-    // Lighting setup for character showcase
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+    // Lighting setup for high-clarity character showcase
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
     scene.add(ambientLight);
 
     // Main key light
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
     keyLight.position.set(2, 4, 3);
     keyLight.castShadow = true;
     scene.add(keyLight);
@@ -73,18 +80,53 @@ export const AboutAvatar3D: React.FC = () => {
     scene.add(blueRim);
 
     // Front soft fill
-    const fillLight = new THREE.PointLight(0x60a5fa, 1.2, 8);
+    const fillLight = new THREE.PointLight(0x60a5fa, 1.3, 8);
     fillLight.position.set(0, 1.2, 2.5);
     scene.add(fillLight);
 
-    // Dedicated fill light for shoes and lower body
-    const shoeLight = new THREE.DirectionalLight(0x38bdf8, 1.8);
-    shoeLight.position.set(0, 0.4, 2.2);
-    scene.add(shoeLight);
+    // Dedicated shoe & lower-body lights for crystal-clear shoe visibility
+    const shoeFillLight = new THREE.DirectionalLight(0xe0f2fe, 2.2);
+    shoeFillLight.position.set(0, 0.35, 2.5);
+    scene.add(shoeFillLight);
 
-    const floorBounce = new THREE.DirectionalLight(0xffffff, 1.2);
-    floorBounce.position.set(0, -0.5, 1.5);
-    scene.add(floorBounce);
+    const floorBounceLight = new THREE.DirectionalLight(0x93c5fd, 1.5);
+    floorBounceLight.position.set(0, -0.6, 1.5);
+    scene.add(floorBounceLight);
+
+    const leftShoeRim = new THREE.PointLight(0x38bdf8, 1.6, 4);
+    leftShoeRim.position.set(-0.9, 0.25, 0.6);
+    scene.add(leftShoeRim);
+
+    const rightShoeRim = new THREE.PointLight(0x60a5fa, 1.6, 4);
+    rightShoeRim.position.set(0.9, 0.25, 0.6);
+    scene.add(rightShoeRim);
+
+    // Subtle natural contact shadow plane on floor (transparent, grounds shoes without any card/container)
+    const shadowCanvas = document.createElement('canvas');
+    shadowCanvas.width = 128;
+    shadowCanvas.height = 128;
+    const sCtx = shadowCanvas.getContext('2d');
+    if (sCtx) {
+      const grad = sCtx.createRadialGradient(64, 64, 0, 64, 64, 60);
+      grad.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
+      grad.addColorStop(0.35, 'rgba(0, 0, 0, 0.22)');
+      grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.06)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      sCtx.fillStyle = grad;
+      sCtx.fillRect(0, 0, 128, 128);
+    }
+    const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
+    const shadowGeo = new THREE.PlaneGeometry(1.3, 0.9);
+    const shadowMat = new THREE.MeshBasicMaterial({
+      map: shadowTexture,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+    });
+    const contactShadow = new THREE.Mesh(shadowGeo, shadowMat);
+    contactShadow.rotation.x = -Math.PI / 2;
+    contactShadow.position.set(0, 0.002, 0);
+    scene.add(contactShadow);
 
     // GLTFLoader
     const loader = new GLTFLoader();
@@ -93,37 +135,45 @@ export const AboutAvatar3D: React.FC = () => {
     loader.load(
       avatarModelUrl,
       (gltf) => {
-        modelRoot = gltf.scene;
+        const rawModel = gltf.scene;
 
-        // Auto center and scale model
-        const box = new THREE.Box3().setFromObject(modelRoot);
+        // Auto center model so feet are placed on the ground at y=0
+        const box = new THREE.Box3().setFromObject(rawModel);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
 
-        // Place model feet directly on pedestal at y=0, centered on x and z
-        modelRoot.position.x = -center.x;
-        modelRoot.position.y = -box.min.y;
-        modelRoot.position.z = -center.z;
+        // Offset the inner model so pivotGroup's origin is at feet center (x=0, y=0, z=0)
+        rawModel.position.set(-center.x, -box.min.y, -center.z);
 
-        // Setup shadows and materials
-        modelRoot.traverse((child) => {
+        // Enhance materials and shoe visibility
+        rawModel.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
+            const mesh = child as THREE.Mesh;
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+
+            // Make dark shoe leather catch highlights and light contours
+            if (mesh.name.toLowerCase().includes('shoe') && mesh.material) {
+              const mat = mesh.material as THREE.MeshStandardMaterial;
+              if (mat.roughness !== undefined) {
+                mat.roughness = 0.42;
+                mat.metalness = 0.18;
+              }
+            }
           }
         });
 
-        scene.add(modelRoot);
+        pivotGroup.add(rawModel);
 
-        // Adjust camera to frame avatar head-to-toe with full shoe clearance
-        const modelHeight = size.y;
-        const targetCenterY = modelHeight * 0.45;
-        camera.position.set(0, targetCenterY, 3.4);
+        // Adjust camera to frame avatar head-to-toe with comfortable clearance above head and below shoes
+        const modelHeight = size.y; // ~1.89m
+        const targetCenterY = modelHeight * 0.48; // ~0.91m
+        camera.position.set(0, targetCenterY, 3.5);
         camera.lookAt(0, targetCenterY, 0);
 
         // Play waving / idling animation
         if (gltf.animations && gltf.animations.length > 0) {
-          mixer = new THREE.AnimationMixer(modelRoot);
+          mixer = new THREE.AnimationMixer(rawModel);
           const clip = gltf.animations[0];
           const action = mixer.clipAction(clip);
           action.setEffectiveTimeScale(1.0);
@@ -152,14 +202,12 @@ export const AboutAvatar3D: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       const mouseRelX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const mouseRelY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
 
       if (isDragging) {
         const deltaX = e.clientX - previousMouseX;
         targetRotationY += deltaX * 0.01;
         previousMouseX = e.clientX;
       } else {
-        // Subtle gaze / body tilt toward cursor
         targetTiltX = mouseRelX * 0.2;
       }
     };
@@ -196,17 +244,19 @@ export const AboutAvatar3D: React.FC = () => {
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchend', handleTouchEnd);
 
-    // Resize handler
-    const handleResize = () => {
-      if (!container) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
-
-    window.addEventListener('resize', handleResize);
+    // Responsive container resize observer
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const width = entry.contentRect.width;
+        const height = entry.contentRect.height;
+        if (width > 0 && height > 0) {
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        }
+      }
+    });
+    resizeObserver.observe(container);
 
     // Render loop
     const animate = () => {
@@ -221,8 +271,8 @@ export const AboutAvatar3D: React.FC = () => {
       currentRotationY += (targetRotationY - currentRotationY) * 0.08;
       currentTiltX += (targetTiltX - currentTiltX) * 0.05;
 
-      if (modelRoot) {
-        modelRoot.rotation.y = currentRotationY + currentTiltX;
+      if (pivotGroup) {
+        pivotGroup.rotation.y = currentRotationY + currentTiltX;
       }
 
       renderer.render(scene, camera);
@@ -232,7 +282,7 @@ export const AboutAvatar3D: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
       container.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
